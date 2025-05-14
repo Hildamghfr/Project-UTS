@@ -9,6 +9,7 @@
   <!-- Tambahkan AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
+    /* All existing styles remain unchanged */
     :root {
       --primary-color: #0056b3;
       --secondary-color: #f8d000;
@@ -515,6 +516,58 @@
   if (statsSection) {
     observer.observe(statsSection);
   }
+
+  // Script untuk menghubungkan berita ke news-detail.html dengan ID yang sesuai
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mapping judul berita ke ID berita
+    const newsMapping = [
+      {
+        title: "Volume Penjualan PLN Batu Bara Niaga Tumbuh 464 Persen pada 2022",
+        id: "3"
+      },
+      {
+        title: "Raih Penghargaan Listrik Indonesia 2024",
+        id: "1"
+      },
+      {
+        title: "Pendapatan PLN Batubara Niaga Tembus Rp 6,3 Triliun",
+        id: "2"
+      }
+    ];
+    
+    // Dapatkan semua kartu berita
+    const newsCards = document.querySelectorAll('.news-card');
+    
+    // Untuk setiap kartu berita
+    newsCards.forEach(card => {
+      // Dapatkan judul berita
+      const titleElement = card.querySelector('.card-title');
+      if (titleElement) {
+        const title = titleElement.textContent.trim();
+        
+        // Cari ID yang sesuai dengan judul
+        const newsItem = newsMapping.find(item => title.includes(item.title));
+        
+        if (newsItem) {
+          // Dapatkan link "Baca Selengkapnya"
+          const link = card.querySelector('a.btn');
+          if (link) {
+            // Ubah href untuk menyertakan ID berita
+            link.href = `news-detail.html?id=${newsItem.id}`;
+          }
+          
+          // Buat seluruh kartu dapat diklik (opsional)
+          card.style.cursor = 'pointer';
+          card.addEventListener('click', function(e) {
+            // Jika yang diklik bukan tombol, arahkan ke halaman detail
+            if (!e.target.classList.contains('btn')) {
+              window.location.href = `news-detail.html?id=${newsItem.id}`;
+            }
+          });
+        }
+      }
+    });
+  });
 </script>
 
 </body>
