@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLN Batubara Niaga</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Tambahkan AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #f8d000;
+      --dark-color: #1f1f1f;
+      --light-color: #f8f9fa;
+      --transition: all 0.3s ease-in-out;
+    }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .hero-section {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      color: white;
+      height: 100vh;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Bagian Statistik yang Diperbarui */
+    .stats-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .stats-box {
+      text-align: center;
+      padding: 30px 20px;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .stats-box::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    .stats-box:hover::before {
+      height: 100%;
+      opacity: 0.1;
+    }
+
+    .stats-box:hover {
+      transform: translateY(-10px);
+    }
+
+    .stats-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stats-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .section-title {
+      position: relative;
+      margin-bottom: 50px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    .news-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    /* Efek Hover Kartu */
+    .hover-shadow {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-shadow:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .footer-link:hover {
+      color: #f8d000 !important;
+      text-decoration: underline;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .footer-social-icon:hover {
+      color: #f8d000 !important;
+      font-size: 1.4rem;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .footer {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .footer .row > div {
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+
+    .footer .row > div:last-child {
+      border-right: none;
+    }
+
+    /* Header Scroll Effect */
+    .navbar-scrolled {
+      background-color: rgb(123, 117, 117) !important;
+      transition: background-color 0.4s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-scrolled .nav-link,
+    .navbar-scrolled .navbar-brand,
+    .navbar-scrolled .navbar-brand strong {
+        color: #000 !important;
+    }
+
+    .video-thumbnail:hover .video-overlay {
+        background-color: rgba(0,0,0,0.6);
+        transition: background-color 0.3s ease;
+    }
+
+    /* Tambahkan animasi custom untuk AOS */
+    [data-aos] {
+      opacity: 0;
+      transition-property: opacity, transform;
+    }
+    
+    [data-aos].aos-animate {
+      opacity: 1;
+    }
+    
+    /* Animasi untuk elemen yang muncul dari bawah */
+    [data-aos="fade-up"] {
+      transform: translateY(50px);
+    }
+    
+    [data-aos="fade-up"].aos-animate {
+      transform: translateY(0);
+    }
+    
+    /* Animasi untuk elemen yang muncul dari kiri */
+    [data-aos="fade-right"] {
+      transform: translateX(-50px);
+    }
+    
+    [data-aos="fade-right"].aos-animate {
+      transform: translateX(0);
+    }
+    
+    /* Animasi untuk elemen yang muncul dari kanan */
+    [data-aos="fade-left"] {
+      transform: translateX(50px);
+    }
+    
+    [data-aos="fade-left"].aos-animate {
+      transform: translateX(0);
+    }
+    
+    /* Animasi untuk elemen yang muncul dengan zoom */
+    [data-aos="zoom-in"] {
+      transform: scale(0.9);
+    }
+    
+    [data-aos="zoom-in"].aos-animate {
+      transform: scale(1);
+    }
+  </style>
+</head>
+<body>
+
+<header id="mainHeader" class="fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-transparent py-3">
+    <div class="container">
+      <a>
+        <img src="images/home/logo.png" alt="Logo" height="60" />
+        <strong class="ms-2 text-white">PLN Batubara Niaga</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-white" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="news.html">News</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Carousel - Tetap seperti aslinya -->
+<section id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="hero-section d-flex align-items-center text-center" style="background-image: url('images/home/Energi.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+          <h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="1000">PLN Batubara Niaga</h1>
+          <p class="lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Jaminan Terpercaya Menyediakan Batubara</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="hero-section d-flex align-items-center text-center" style="background-image: url('images/home/inovasi.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+          <h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="1000">Mengoptimalkan Landed Cost</h1>
+          <p class="lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Mengoptimalkan Landed Cost untuk meningkatkan produktifitas</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="hero-section d-flex align-items-center text-center" style="background-image: url('images/home/kolaborasi.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+          <h1 class="display-5 fw-bold" data-aos="fade-up" data-aos-duration="1000">Kemitraan untuk Masa Depan</h1>
+          <p class="lead" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Bersinergi dengan institusi pendidikan dalam pengembangan SDM pertambangan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</section>
+
+<!-- Tentang - Diperbarui dengan desain baru -->
+<section class="stats-section">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Tentang PLN Batubara Niaga</h2>
+    <p class="text-center mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      Merupakan anak perusahaan PT PLN (Persero) yang bergerak di bidang pertambangan batubara dan perdagangan batubara untuk mendukung pasokan bahan bakar pembangkit listrik PLN.
+    </p>
+    
+    <div class="row">
+      <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="stats-box">
+          <div class="stats-number" data-counter="10">10+</div>
+          <div class="stats-label">Tahun Pengalaman</div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="stats-box">
+          <div class="stats-number" data-counter="6">6+</div>
+          <div class="stats-label">Lokasi Tambang</div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="stats-box">
+          <div class="stats-number" data-counter="1000">1000+</div>
+          <div class="stats-label">Karyawan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Berita -->
+<section class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold text-primary" data-aos="fade-up" data-aos-duration="800">Berita Terkini</h2>
+    <div class="row g-4">
+      <!-- Card Berita 1 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <div class="card news-card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white hover-shadow">
+          <img src="images/home/news1.jpg" alt="Berita 1" class="card-img-top" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary">Volume Penjualan PLN Batu Bara Niaga Tumbuh 464 Persen pada 2022</h5>
+            <p class="card-text">Direktur Utama PLN EPI Iwan Agung Firstantara menjelaskan capaian kinerja yang cemerlang pada PLN BBN</p>
+            <a href="news-detail.html" class="btn btn-outline-primary mt-auto rounded-pill">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Berita 2 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+        <div class="card news-card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white hover-shadow">
+          <img src="images/home/news2.jpg" alt="Berita 2" class="card-img-top" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary">Raih Penghargaan Listrik Indonesia 2024</h5>
+            <p class="card-text">PT PLN Batubara Niaga meraih penghargaan bergengsi dengan predikat "The Most Innovative Primary Energy Supplier" dalam kategori "Energy Supply Chain Company"</p>
+            <a href="news-detail.html" class="btn btn-outline-primary mt-auto rounded-pill">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Berita 3 -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+        <div class="card news-card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white hover-shadow">
+          <img src="images/home/news3.jpg" alt="Berita 3" class="card-img-top" />
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-primary">Pendapatan PLN Batubara Niaga Tembus Rp 6,3 Triliun</h5>
+            <p class="card-text">Performa PT PLN Batubara Niaga terus membaik di bawah kepemimpinan Kanapi Subur Dwiyanto sejak 2021. Pendapatan anak perusahaan PLN ini terus subur.</p>
+            <a href="news-detail.html" class="btn btn-outline-primary mt-auto rounded-pill">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+      <a href="news.html" class="btn btn-warning px-4 py-2 rounded-pill fw-semibold shadow">Lihat Semua Berita</a>
+    </div>
+  </div>
+</section>
+
+<!-- Video -->
+<!-- Video Section -->
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="mb-4 fw-bold" data-aos="fade-up" data-aos-duration="800">Video Terkini</h2>
+    <div class="position-relative mx-auto" style="max-width: 960px;" data-aos="zoom-in" data-aos-duration="1000">
+      <div class="video-thumbnail" style="background-image: url('images/home/inovasi.jpg'); height: 400px; background-size: cover; background-position: center; border-radius: 12px; position: relative;">
+        <div class="video-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center text-start px-4 py-3 text-white" style="background-color: rgba(0,0,0,0.5); border-radius: 12px;">
+          <h4 class="fw-bold" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">PLN Batubara Niaga</h4>
+          <p style="max-width: 600px;" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
+            PT PLN Batubara Niaga merupakan Anak Perusahaan dari PT PLN Energi Primer Indonesia yang telah berkomitmen untuk menjamin <em>security of supply</em> pasokan batubara bagi PLTU PLN dan IPP serta industri non ketenagalistrikkan berdasarkan prinsip Good Corporate Governance.
+          </p>
+         <!-- Tombol Play di kanan tengah -->
+            <button class="btn btn-light rounded-circle position-absolute" data-bs-toggle="modal" data-bs-target="#videoModal"
+            style="top: 50%; right: 150px; transform: translateY(-50%); width: 60px; height: 60px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);"
+            data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
+            <i class="bi bi-play-fill fs-2 text-primary"></i>
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal for YouTube Video -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-body p-0">
+        <div class="ratio ratio-16x9">
+          <iframe id="videoIframe" src="" title="Video PLN Batubara Niaga" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer text-white" style="background: linear-gradient(to right, #1f1f1f, #343a40);">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <h5 class="fw-bold mb-3">Kontak Kami</h5>
+        <p><i class="bi bi-geo-alt-fill"></i> Jl. Buncit Raya No.10, Kalibata, Pancoran, Jakarta Selatan, DKI Jakarta, 12740</p>
+        <p><i class="bi bi-telephone-fill"></i> Telp: (021) 26963955</p>
+        <p><i class="bi bi-envelope-fill"></i> Email: kontak@plnbatubaraniaga.co.id</p>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+        <h5 class="fw-bold mb-3">Menu</h5>
+        <ul class="list-unstyled">
+          <li><a href="about.html" class="text-white text-decoration-none footer-link">About Us</a></li>
+          <li><a href="news.html" class="text-white text-decoration-none footer-link">News</a></li>
+          <li><a href="contact.html" class="text-white text-decoration-none footer-link">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+        <h5 class="fw-bold mb-3">Ikuti Kami</h5>
+        <a href="https://www.instagram.com/plnbatubaraniaga?igsh=MTByNGd1emU3NXE1eA==" class="text-white footer-social-icon"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+    <div class="text-center mt-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+      <small>&copy; 2025 PLN Batubara Niaga. Project UTS Hilda (202332092) .</small>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Tambahkan AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Inisialisasi AOS
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    mirror: false,
+    disable: 'mobile' // Nonaktifkan pada perangkat mobile jika performa lambat
+  });
+
+  // Reinisialisasi AOS saat carousel slide berubah
+  document.getElementById('heroCarousel').addEventListener('slid.bs.carousel', function () {
+    AOS.refresh();
+  });
+
+  window.addEventListener('scroll', function () {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 50) {
+      header.classList.add('navbar-scrolled');
+    } else {
+      header.classList.remove('navbar-scrolled');
+    }
+  });
+
+  const videoModal = document.getElementById('videoModal');
+  const videoIframe = document.getElementById('videoIframe');
+  const youtubeUrl = "https://www.youtube.com/embed/cTQDfbgx98M";
+
+  videoModal.addEventListener('show.bs.modal', () => {
+    videoIframe.src = youtubeUrl;
+  });
+
+  videoModal.addEventListener('hidden.bs.modal', () => {
+    videoIframe.src = "";
+  });
+  
+  // Animasi counter untuk statistik
+  function animateCounters() {
+    const counters = document.querySelectorAll('.stats-number');
+    
+    counters.forEach(counter => {
+      const target = counter.getAttribute('data-counter');
+      const isPlus = counter.textContent.includes('+');
+      let count = 0;
+      const duration = 2000; // 2 detik
+      const interval = 50; // Update setiap 50ms
+      const increment = Math.ceil(target / (duration / interval));
+      
+      const timer = setInterval(() => {
+        count += increment;
+        
+        if (count >= target) {
+          clearInterval(timer);
+          count = target;
+        }
+        
+        counter.textContent = count + (isPlus ? '+' : '');
+      }, interval);
+    });
+  }
+  
+  // Jalankan animasi counter saat halaman dimuat
+  window.addEventListener('load', animateCounters);
+  
+  // Atau gunakan Intersection Observer untuk memulai animasi saat elemen terlihat
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  const statsSection = document.querySelector('.stats-section');
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Berita - PLN Batubara Niaga</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #f8d000;
+      --dark-color: #1f1f1f;
+      --light-color: #f8f9fa;
+      --transition: all 0.3s ease-in-out;
+    }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* Header Styles */
+    .navbar {
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      height: 60px;
+      transition: var(--transition);
+    }
+
+    .navbar-brand strong {
+      margin-left: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      transition: var(--transition);
+    }
+
+    .navbar-scrolled {
+      background-color: white !important;
+      padding: 10px 0;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-scrolled .navbar-brand img {
+      height: 50px;
+    }
+
+    .navbar-scrolled .navbar-brand strong,
+    .navbar-scrolled .nav-link {
+      color: var(--dark-color) !important;
+    }
+
+    .nav-link {
+      color: white !important;
+      font-weight: 600;
+      margin: 0 10px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-meta-item i {
+      margin-right: 8px;
+      color: var(--secondary-color);
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+
+    .content-wrapper {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    /* Article Content */
+    .article-content {
+      padding: 40px;
+    }
+
+    .article-content p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .article-content h2 {
+      margin: 40px 0 20px;
+      font-weight: 700;
+      color: var(--dark-color);
+    }
+
+    .article-content h3 {
+      margin: 30px 0 15px;
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    .article-content img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 30px 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-content ul, 
+    .article-content ol {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+
+    .article-content li {
+      margin-bottom: 10px;
+    }
+
+    .article-content blockquote {
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      background-color: rgba(0, 86, 179, 0.05);
+      margin: 30px 0;
+      font-style: italic;
+      color: #555;
+    }
+
+    /* Image Gallery */
+    .image-gallery {
+      margin: 40px 0;
+    }
+
+    .gallery-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark-color);
+    }
+
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      cursor: pointer;
+      height: 200px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Author Section */
+    .author-section {
+      display: flex;
+      align-items: center;
+      padding: 30px;
+      background-color: rgba(0, 86, 179, 0.05);
+      border-radius: 10px;
+      margin: 40px 0;
+    }
+
+    .author-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+      border: 3px solid white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .author-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--dark-color);
+    }
+
+    .author-info p {
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .author-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .author-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: white;
+      color: var(--primary-color);
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .author-social a:hover {
+      background-color: var(--primary-color);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Share Section */
+    .share-section {
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .share-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark-color);
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .share-button {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .share-button i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .share-button.facebook {
+      background-color: #3b5998;
+    }
+
+    .share-button.twitter {
+      background-color: #1da1f2;
+    }
+
+    .share-button.whatsapp {
+      background-color: #25d366;
+    }
+
+    .share-button.linkedin {
+      background-color: #0077b5;
+    }
+
+    .share-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      color: white;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 30px 0;
+    }
+
+    .tag {
+      padding: 5px 15px;
+      background-color: rgba(0, 86, 179, 0.1);
+      color: var(--primary-color);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .tag:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    /* Comments Section */
+    .comments-section {
+      margin: 40px 0;
+    }
+
+    .comments-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: var(--dark-color);
+    }
+
+    .comment {
+      display: flex;
+      margin-bottom: 30px;
+    }
+
+    .comment-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    .comment-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .comment-content {
+      flex: 1;
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .comment-author {
+      font-weight: 700;
+      color: var(--dark-color);
+    }
+
+    .comment-date {
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .comment-text {
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .comment-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .comment-action {
+      color: #999;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .comment-action:hover {
+      color: var(--primary-color);
+    }
+
+    .comment-form {
+      margin-top: 40px;
+    }
+
+    .comment-form-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark-color);
+    }
+
+    .form-control {
+      border-radius: 10px;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 86, 179, 0.2);
+    }
+
+    .btn-primary:hover {
+      background-color: #004a99;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 86, 179, 0.3);
+    }
+
+    /* Related News */
+    .related-news {
+      padding: 60px 0;
+      background-color: #f0f4f8;
+    }
+
+    .related-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 40px;
+      text-align: center;
+      color: var(--dark-color);
+      position: relative;
+    }
+
+    .related-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    .related-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      height: 100%;
+      background: white;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .related-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .related-img-container {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+    }
+
+    .related-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .related-card:hover .related-img {
+      transform: scale(1.05);
+    }
+
+    .related-date {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 8px 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-top-right-radius: 15px;
+    }
+
+    .related-content {
+      padding: 25px;
+    }
+
+    .related-title-card {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--dark-color);
+      transition: var(--transition);
+      line-height: 1.4;
+    }
+
+    .related-card:hover .related-title-card {
+      color: var(--primary-color);
+    }
+
+    .related-excerpt {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .related-read-more {
+      display: inline-block;
+      color: var(--primary-color);
+      font-weight: 600;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .related-read-more::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .related-card:hover .related-read-more::after {
+      width: 100%;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(135deg, var(--primary-color), #003a80);
+      padding: 60px 0;
+      color: white;
+      text-align: center;
+    }
+
+    .newsletter-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .newsletter-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .newsletter-text {
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 15px 20px;
+      border-radius: 50px 0 0 50px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+    }
+
+    .newsletter-button {
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+      border: none;
+      padding: 0 30px;
+      border-radius: 0 50px 50px 0;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .newsletter-button:hover {
+      background-color: #e0bc00;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: #004a99;
+      transform: translateY(-5px);
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #343a40 100%);
+      color: white;
+      padding: 80px 0 40px;
+      position: relative;
+    }
+
+    .footer-title {
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--secondary-color);
+    }
+
+    .footer-contact {
+      margin-bottom: 20px;
+    }
+
+    .footer-contact i {
+      color: var(--secondary-color);
+      margin-right: 10px;
+    }
+
+    .footer-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-menu li {
+      margin-bottom: 15px;
+    }
+
+    .footer-menu a {
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer-menu a::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .footer-menu a:hover {
+      color: var(--secondary-color);
+      padding-left: 20px;
+    }
+
+    .footer-menu a:hover::before {
+      opacity: 1;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .article-content {
+        padding: 30px;
+      }
+      
+      .gallery-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .share-buttons {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-section {
+        height: 50vh;
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-meta {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .article-content {
+        padding: 25px;
+      }
+      
+      .article-content p {
+        font-size: 1rem;
+      }
+      
+      .author-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .author-image {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      
+      .author-social {
+        justify-content: center;
+      }
+      
+      .comment {
+        flex-direction: column;
+      }
+      
+      .comment-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .main-content {
+        padding: 50px 0;
+      }
+      
+      .article-content {
+        padding: 20px;
+      }
+      
+      .gallery-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .gallery-item {
+        height: 180px;
+      }
+      
+      .share-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .share-button {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+      }
+      
+      .newsletter-input {
+        border-radius: 50px;
+        margin-bottom: 15px;
+      }
+      
+      .newsletter-button {
+        border-radius: 50px;
+        padding: 15px;
+      }
+      
+      .back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop">
+    <i class="bi bi-arrow-up"></i>
+  </div>
+
+  <!-- Header -->
+  <header id="mainHeader" class="fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/home/logo.png" alt="Logo" />
+          <strong>PLN Batubara Niaga</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+            <li class="nav-item"><a class="nav-link active" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="heroSection">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title" id="newsTitle" data-aos="fade-up" data-aos-duration="1000">Loading...</h1>
+      <div class="hero-meta" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+        <div class="hero-meta-item">
+          <i class="bi bi-calendar3"></i>
+          <span id="newsDate">Loading...</span>
+        </div>
+        <div class="hero-meta-item">
+          <i class="bi bi-tag"></i>
+          <span id="newsCategory">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="main-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="content-wrapper" data-aos="fade-up" data-aos-duration="800">
+            <div class="article-content" id="newsContent">
+              <!-- News content will be loaded with JavaScript -->
+              <p>Loading content...</p>
+            </div>
+            
+            <!-- Tags -->
+            <div class="article-content">
+              <div class="tags">
+                <span class="tag">Batubara</span>
+                <span class="tag">PLN</span>
+                <span class="tag">Energi</span>
+                <span class="tag">Pertambangan</span>
+                <span class="tag">Indonesia</span>
+              </div>
+            </div>
+            
+            <!-- Share Section -->
+            <div class="article-content">
+              <div class="share-section">
+                <h4 class="share-title">Bagikan Artikel Ini</h4>
+                <div class="share-buttons">
+                  <a href="#" class="share-button facebook" id="shareFacebook">
+                    <i class="bi bi-facebook"></i> Facebook
+                  </a>
+                  <a href="#" class="share-button twitter" id="shareTwitter">
+                    <i class="bi bi-twitter-x"></i> Twitter
+                  </a>
+                  <a href="#" class="share-button whatsapp" id="shareWhatsapp">
+                    <i class="bi bi-whatsapp"></i> WhatsApp
+                  </a>
+                  <a href="#" class="share-button linkedin" id="shareLinkedin">
+                    <i class="bi bi-linkedin"></i> LinkedIn
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Author Section -->
+            <div class="article-content">
+              <div class="author-section">
+                <div class="author-image">
+                  <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Author">
+                </div>
+                <div class="author-info">
+                  <h4>Budi Santoso</h4>
+                  <p>Senior Content Writer di PLN Batubara Niaga dengan pengalaman lebih dari 10 tahun di bidang jurnalistik dan komunikasi korporat.</p>
+                  <div class="author-social">
+                    <a href="#"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-envelope"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Comments Section -->
+            <div class="article-content">
+              <div class="comments-section">
+                <h3 class="comments-title">Komentar (2)</h3>
+                
+                <div class="comment">
+                  <div class="comment-avatar">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User">
+                  </div>
+                  <div class="comment-content">
+                    <div class="comment-header">
+                      <span class="comment-author">Siti Rahayu</span>
+                      <span class="comment-date">2 hari yang lalu</span>
+                    </div>
+                    <p class="comment-text">Artikel yang sangat informatif! Saya jadi lebih memahami bagaimana PLN Batubara Niaga berkontribusi dalam ketahanan energi nasional.</p>
+                    <div class="comment-actions">
+                      <span class="comment-action"><i class="bi bi-hand-thumbs-up"></i> Suka</span>
+                      <span class="comment-action"><i class="bi bi-reply"></i> Balas</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="comment">
+                  <div class="comment-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User">
+                  </div>
+                  <div class="comment-content">
+                    <div class="comment-header">
+                      <span class="comment-author">Agus Purnomo</span>
+                      <span class="comment-date">1 minggu yang lalu</span>
+                    </div>
+                    <p class="comment-text">Semoga PLN Batubara Niaga terus berinovasi dan berkembang untuk mendukung kebutuhan energi Indonesia. Sukses selalu!</p>
+                    <div class="comment-actions">
+                      <span class="comment-action"><i class="bi bi-hand-thumbs-up"></i> Suka</span>
+                      <span class="comment-action"><i class="bi bi-reply"></i> Balas</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="comment-form">
+                  <h4 class="comment-form-title">Tinggalkan Komentar</h4>
+                  <form>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Nama" required>
+                      </div>
+                      <div class="col-md-6">
+                        <input type="email" class="form-control" placeholder="Email" required>
+                      </div>
+                    </div>
+                    <textarea class="form-control" placeholder="Komentar Anda" required></textarea>
+                    <button type="submit" class="btn btn-primary">Kirim Komentar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related News -->
+  <section class="related-news">
+    <div class="container">
+      <h2 class="related-title" data-aos="fade-up" data-aos-duration="800">Berita Terkait</h2>
+      
+      <div class="row g-4" id="relatedNewsContainer">
+        <!-- Related news will be loaded with JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter-content" data-aos="fade-up" data-aos-duration="800">
+        <h2 class="newsletter-title">Berlangganan Newsletter</h2>
+        <p class="newsletter-text">Dapatkan informasi terbaru seputar PLN Batubara Niaga langsung ke email Anda</p>
+        <form class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Masukkan email Anda" required>
+          <button type="submit" class="newsletter-button">Berlangganan</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+          <h5 class="footer-title">Kontak Kami</h5>
+          <div class="footer-contact">
+            <p><i class="bi bi-geo-alt-fill"></i> Jl. Buncit Raya No.10, Kalibata, Pancoran, Jakarta Selatan, DKI Jakarta, 12740</p>
+            <p><i class="bi bi-telephone-fill"></i> Telp: (021) 26963955</p>
+            <p><i class="bi bi-envelope-fill"></i> Email: kontak@plnbatubaraniaga.co.id</p>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <h5 class="footer-title">Menu</h5>
+          <ul class="footer-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+          <h5 class="footer-title">Ikuti Kami</h5>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/plnbatubaraniaga?igsh=MTByNGd1emU3NXE1eA==" class="social-icon">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 PLN Batubara Niaga. Project UTS Hilda (202332092).</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false,
+      disable: 'mobile' // Disable on mobile if performance is slow
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      const backToTop = document.getElementById('backToTop');
+      
+      if (window.scrollY > 50) {
+        header.classList.add('navbar-scrolled');
+        backToTop.classList.add('show');
+      } else {
+        header.classList.remove('navbar-scrolled');
+        backToTop.classList.remove('show');
+      }
+    });
+    
+    // Back to top button
+    document.getElementById('backToTop').addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // News Data (same as in news.html)
+    const newsData = [
+      {
+        id: "1",
+        title: "Raih Penghargaan Listrik Indonesia 2024",
+        image: "images/home/news2.jpg",
+        date: "15 April 2024",
+        category: "award",
+        excerpt: "PT PLN Batubara Niaga meraih penghargaan bergengsi dengan predikat 'The Most Innovative Primary Energy Supplier' dalam kategori 'Energy Supply Chain Company'.",
+        content: `
+          <p>Jakarta, 15 April 2024 - PT PLN Batubara Niaga berhasil meraih penghargaan bergengsi dalam ajang "Listrik Indonesia Awards 2024" dengan predikat "The Most Innovative Primary Energy Supplier" dalam kategori "Energy Supply Chain Company". Penghargaan ini diberikan atas inovasi dan kontribusi perusahaan dalam menjaga ketersediaan pasokan batubara untuk pembangkit listrik di seluruh Indonesia.</p>
+          
+          <p>Direktur Utama PT PLN Batubara Niaga, Bapak Kanapi Subur Dwiyanto, menerima penghargaan tersebut dalam seremoni yang diselenggarakan di Hotel Mulia, Jakarta pada Rabu (14/4) malam. Dalam sambutannya, beliau menyampaikan bahwa penghargaan ini merupakan bukti komitmen perusahaan dalam mendukung ketahanan energi nasional.</p>
+          
+          <h2>Inovasi Berkelanjutan</h2>
+          
+          <p>"Penghargaan ini menjadi motivasi bagi kami untuk terus berinovasi dalam menjaga ketersediaan pasokan batubara yang berkualitas dan berkelanjutan untuk pembangkit listrik PLN. Kami berkomitmen untuk terus meningkatkan efisiensi dan efektivitas rantai pasok batubara demi mendukung ketahanan energi nasional," ujar Kanapi dalam sambutannya.</p>
+          
+          <p>PT PLN Batubara Niaga telah menerapkan berbagai inovasi dalam pengelolaan rantai pasok batubara, termasuk implementasi sistem manajemen persediaan terintegrasi, optimasi rute transportasi, dan pemanfaatan teknologi digital untuk pemantauan kualitas batubara secara real-time.</p>
+          
+          <img src="images/home/news2.jpg" alt="Penghargaan Listrik Indonesia 2024">
+          
+          <h2>Kontribusi Terhadap Ketahanan Energi</h2>
+          
+          <p>Sebagai anak perusahaan PT PLN (Persero), PT PLN Batubara Niaga memiliki peran strategis dalam menjamin ketersediaan pasokan batubara untuk pembangkit listrik PLN di seluruh Indonesia. Perusahaan ini bertanggung jawab untuk mengelola pengadaan, transportasi, dan distribusi batubara ke berbagai pembangkit listrik tenaga uap (PLTU) milik PLN.</p>
+          
+          <p>Menteri Energi dan Sumber Daya Mineral, yang hadir dalam acara tersebut, menekankan pentingnya inovasi dalam industri energi untuk mendukung transisi energi dan ketahanan energi nasional. Beliau mengapresiasi upaya PT PLN Batubara Niaga dalam mengembangkan sistem pengelolaan batubara yang efisien dan berkelanjutan.</p>
+          
+          <blockquote>
+            "Inovasi dalam pengelolaan energi primer seperti batubara sangat penting untuk menjaga keandalan pasokan listrik nasional. Kami mengapresiasi upaya PT PLN Batubara Niaga dalam mengembangkan sistem yang efisien dan berkelanjutan," ujar Menteri ESDM.
+          </blockquote>
+          
+          <h2>Rencana Ke Depan</h2>
+          
+          <p>Ke depan, PT PLN Batubara Niaga berencana untuk terus mengembangkan inovasi dalam pengelolaan batubara, termasuk implementasi teknologi blockchain untuk meningkatkan transparansi rantai pasok, pengembangan sistem prediksi kebutuhan batubara berbasis kecerdasan buatan, dan peningkatan kapasitas infrastruktur logistik.</p>
+          
+          <p>"Kami akan terus berinovasi dan beradaptasi dengan perkembangan teknologi untuk meningkatkan efisiensi dan efektivitas pengelolaan batubara. Hal ini sejalan dengan komitmen kami untuk mendukung program pemerintah dalam menjaga ketahanan energi nasional," tutup Kanapi.</p>
+          
+          <p>Penghargaan "Listrik Indonesia Awards 2024" merupakan ajang tahunan yang diselenggarakan oleh Kementerian Energi dan Sumber Daya Mineral bekerjasama dengan Asosiasi Perusahaan Listrik Indonesia untuk memberikan apresiasi kepada perusahaan-perusahaan yang berkontribusi dalam pengembangan sektor ketenagalistrikan di Indonesia.</p>
+        `
+      },
+      {
+        id: "2",
+        title: "Pendapatan PLN Batubara Niaga Tembus Rp 6,3 Triliun",
+        image: "images/home/news3.jpg",
+        date: "10 April 2024",
+        category: "business",
+        excerpt: "Performa PT PLN Batubara Niaga terus membaik di bawah kepemimpinan Kanapi Subur Dwiyanto sejak 2021. Pendapatan anak perusahaan PLN ini terus subur.",
+        content: `
+          <p>Jakarta, 10 April 2024 - PT PLN Batubara Niaga mencatatkan kinerja keuangan yang mengesankan dengan pendapatan mencapai Rp 6,3 triliun pada tahun 2023. Pencapaian ini menandai pertumbuhan signifikan sebesar 18% dibandingkan tahun sebelumnya, menegaskan posisi perusahaan sebagai pemain kunci dalam rantai pasok batubara untuk pembangkit listrik nasional.</p>
+          
+          <p>Direktur Keuangan PT PLN Batubara Niaga, Ibu Sari Wijayanti, mengungkapkan bahwa peningkatan pendapatan ini didorong oleh strategi optimasi rantai pasok dan efisiensi operasional yang diterapkan perusahaan selama dua tahun terakhir.</p>
+          
+          <h2>Strategi Pertumbuhan</h2>
+          
+          <p>"Kami telah menerapkan berbagai strategi untuk meningkatkan efisiensi operasional dan mengoptimalkan rantai pasok batubara. Hasilnya, kami berhasil meningkatkan volume penjualan dan menekan biaya operasional, yang berdampak positif pada pendapatan perusahaan," jelas Sari dalam konferensi pers di Jakarta, Rabu (10/4).</p>
+          
+          <p>Di bawah kepemimpinan Direktur Utama Kanapi Subur Dwiyanto yang menjabat sejak 2021, PT PLN Batubara Niaga telah melakukan transformasi bisnis yang komprehensif, termasuk restrukturisasi organisasi, digitalisasi proses bisnis, dan pengembangan kemitraan strategis dengan produsen batubara.</p>
+          
+          <img src="images/home/news3.jpg" alt="Grafik Pendapatan PLN Batubara Niaga">
+          
+          <h2>Peningkatan Volume Penjualan</h2>
+          
+          <p>Selain peningkatan pendapatan, PT PLN Batubara Niaga juga mencatatkan pertumbuhan volume penjualan batubara sebesar 22% dibandingkan tahun sebelumnya. Perusahaan berhasil menyalurkan lebih dari 40 juta ton batubara ke berbagai pembangkit listrik PLN di seluruh Indonesia.</p>
+          
+          <p>"Peningkatan volume penjualan ini menunjukkan kepercayaan PLN terhadap kemampuan kami dalam menjamin pasokan batubara yang berkualitas dan tepat waktu untuk pembangkit listrik mereka," ujar Direktur Operasi PT PLN Batubara Niaga, Bapak Hendra Kusuma.</p>
+          
+          <blockquote>
+            "Kinerja keuangan yang solid ini menjadi modal penting bagi kami untuk terus berkembang dan mendukung ketahanan energi nasional melalui jaminan pasokan batubara yang andal untuk pembangkit listrik PLN," tambah Sari Wijayanti.
+          </blockquote>
+          
+          <h2>Kontribusi terhadap PLN Group</h2>
+          
+          <p>Sebagai anak perusahaan PLN, kinerja PT PLN Batubara Niaga memberikan kontribusi signifikan terhadap konsolidasi keuangan PLN Group. Direktur Utama PLN, Bapak Darmawan Prasodjo, menyambut baik pencapaian ini dan menekankan pentingnya sinergi antar anak perusahaan dalam mendukung transformasi PLN.</p>
+          
+          <p>"Kinerja positif PT PLN Batubara Niaga menunjukkan keberhasilan strategi transformasi yang kami terapkan di seluruh ekosistem PLN Group. Sinergi antar anak perusahaan menjadi kunci dalam mewujudkan visi PLN untuk menyediakan listrik yang andal, terjangkau, dan berkelanjutan bagi seluruh masyarakat Indonesia," ujar Darmawan.</p>
+          
+          <h2>Prospek ke Depan</h2>
+          
+          <p>Melihat ke depan, PT PLN Batubara Niaga menargetkan pertumbuhan pendapatan sebesar 15% pada tahun 2024, didukung oleh rencana ekspansi bisnis dan peningkatan kapasitas logistik. Perusahaan juga berencana untuk mengembangkan portofolio bisnis ke arah energi terbarukan, sejalan dengan komitmen PLN dalam mendukung transisi energi.</p>
+          
+          <p>"Kami optimis dapat mencapai target pertumbuhan pada tahun 2024, didukung oleh fundamental bisnis yang kuat dan strategi pengembangan yang terarah. Kami juga mulai menjajaki peluang di sektor energi terbarukan sebagai bagian dari diversifikasi bisnis jangka panjang," tutup Kanapi Subur Dwiyanto.</p>
+        `
+      },
+      {
+        id: "3",
+        title: "Volume Penjualan Tumbuh 464 Persen pada 2022",
+        image: "images/home/news1.jpg",
+        date: "5 April 2024",
+        category: "business",
+        excerpt: "Direktur Utama PLN EPI Iwan Agung Firstantara menjelaskan capaian kinerja yang cemerlang pada PLN BBN.",
+        content: `
+          <p>Jakarta, 5 April 2024 - PT PLN Batubara Niaga (PLN BBN) mencatatkan pertumbuhan volume penjualan yang luar biasa sebesar 464% pada tahun 2022 dibandingkan tahun sebelumnya. Pencapaian spektakuler ini diungkapkan oleh Direktur Utama PT PLN Energi Primer Indonesia (PLN EPI), Bapak Iwan Agung Firstantara, dalam paparan kinerja tahunan di Jakarta, Kamis (5/4).</p>
+          
+          <p>PLN BBN, yang merupakan anak perusahaan dari PLN EPI, berhasil menjual 38,7 juta ton batubara sepanjang tahun 2022, meningkat drastis dari 6,9 juta ton pada tahun 2021. Pertumbuhan signifikan ini menjadikan PLN BBN sebagai salah satu pemain utama dalam rantai pasok batubara untuk pembangkit listrik di Indonesia.</p>
+          
+          <h2>Faktor Pendorong Pertumbuhan</h2>
+          
+          <p>"Pertumbuhan volume penjualan yang luar biasa ini didorong oleh beberapa faktor strategis, termasuk peningkatan kapasitas operasional, ekspansi jaringan distribusi, dan penguatan kemitraan dengan produsen batubara," jelas Iwan Agung Firstantara.</p>
+          
+          <p>Direktur Utama PLN BBN, Bapak Kanapi Subur Dwiyanto, menambahkan bahwa transformasi bisnis yang dilakukan sejak tahun 2021 telah membuahkan hasil yang signifikan. "Kami telah melakukan transformasi menyeluruh dalam aspek operasional, logistik, dan manajemen rantai pasok, yang memungkinkan kami untuk meningkatkan kapasitas penjualan secara dramatis," ujar Kanapi.</p>
+          
+          <img src="images/home/news1.jpg" alt="Operasional PLN Batubara Niaga">
+          
+          <h2>Dampak terhadap Ketahanan Energi</h2>
+          
+          <p>Peningkatan volume penjualan PLN BBN memberikan dampak positif terhadap ketahanan energi nasional, khususnya dalam menjamin pasokan batubara untuk pembangkit listrik tenaga uap (PLTU) milik PLN di seluruh Indonesia. Dengan pasokan batubara yang stabil dan terjamin, PLN dapat memastikan keandalan operasional pembangkit listrik dan meminimalkan risiko gangguan pasokan listrik.</p>
+          
+          <p>"Pencapaian PLN BBN ini merupakan kontribusi nyata dalam mendukung ketahanan energi nasional. Dengan jaminan pasokan batubara yang andal, PLN dapat fokus pada peningkatan layanan ketenagalistrikan kepada masyarakat," kata Direktur Pengadaan Strategis PLN, Bapak Sripeni Inten Cahyani, yang hadir dalam paparan kinerja tersebut.</p>
+          
+          <blockquote>
+            "Pertumbuhan volume penjualan sebesar 464% dalam setahun adalah pencapaian luar biasa yang menunjukkan kapabilitas PLN BBN dalam mengelola rantai pasok batubara secara efektif dan efisien," ujar Iwan Agung Firstantara.
+          </blockquote>
+          
+          <h2>Inovasi dan Digitalisasi</h2>
+          
+          <p>Salah satu kunci keberhasilan PLN BBN dalam meningkatkan volume penjualan adalah implementasi inovasi dan digitalisasi dalam proses bisnis. Perusahaan telah menerapkan sistem manajemen rantai pasok terintegrasi yang memungkinkan pemantauan real-time terhadap pergerakan batubara dari tambang hingga pembangkit listrik.</p>
+          
+          <p>"Kami telah mengembangkan platform digital 'Coal Supply Chain Management System' yang memungkinkan kami untuk memantau dan mengoptimalkan seluruh rantai pasok batubara. Sistem ini membantu kami dalam meningkatkan efisiensi operasional dan meminimalkan potensi gangguan pasokan," jelas Direktur Operasi PLN BBN, Bapak Hendra Kusuma.</p>
+          
+          <h2>Target ke Depan</h2>
+          
+          <p>Melihat ke depan, PLN BBN menargetkan pertumbuhan volume penjualan sebesar 20% pada tahun 2023, dengan fokus pada peningkatan efisiensi operasional dan ekspansi kapasitas logistik. Perusahaan juga berencana untuk mengembangkan portofolio produk energi primer lainnya untuk mendukung diversifikasi sumber energi PLN.</p>
+          
+          <p>"Kami akan terus berinovasi dan meningkatkan kapabilitas untuk mendukung transformasi PLN menuju penyediaan energi yang lebih bersih dan berkelanjutan. Meskipun saat ini fokus kami adalah pada batubara, kami juga mulai mengembangkan kapabilitas dalam pengelolaan sumber energi primer lainnya," tutup Kanapi Subur Dwiyanto.</p>
+        `
+      },
+      {
+        id: "4",
+        title: "PLN Batubara Niaga Gelar Pelatihan Pertambangan untuk Masyarakat Lokal",
+        image: "images/home/kolaborasi.jpg",
+        date: "28 Maret 2024",
+        category: "csr",
+        excerpt: "Sebagai bentuk tanggung jawab sosial perusahaan, PLN Batubara Niaga menggelar pelatihan pertambangan untuk masyarakat di sekitar area tambang.",
+        content: `
+          <p>Jambi, 28 Maret 2024 - PT PLN Batubara Niaga (PLN BBN) menyelenggarakan program pelatihan keterampilan pertambangan bagi masyarakat lokal di sekitar area tambang di Kabupaten Muaro Jambi, Provinsi Jambi. Program yang berlangsung selama satu minggu ini diikuti oleh 50 peserta dari lima desa di sekitar area operasional perusahaan.</p>
+          
+          <p>Program pelatihan ini merupakan bagian dari komitmen PLN BBN dalam menjalankan tanggung jawab sosial perusahaan (CSR) dengan fokus pada pengembangan kapasitas masyarakat lokal dan penciptaan lapangan kerja.</p>
+          
+          <h2>Pemberdayaan Masyarakat Lokal</h2>
+          
+          <p>"Kami percaya bahwa kehadiran PLN BBN harus memberikan manfaat nyata bagi masyarakat sekitar. Melalui program pelatihan ini, kami ingin membekali masyarakat dengan keterampilan yang relevan dengan industri pertambangan, sehingga mereka memiliki peluang lebih besar untuk bekerja di sektor ini," ujar Direktur Utama PLN BBN, Bapak Kanapi Subur Dwiyanto, dalam sambutan pembukaan pelatihan.</p>
+          
+          <p>Pelatihan ini mencakup berbagai aspek operasional pertambangan, termasuk teknik penambangan, keselamatan kerja, pemeliharaan alat berat, dan rehabilitasi lahan pasca tambang. Para peserta juga mendapatkan pemahaman tentang aspek lingkungan dan sosial dalam kegiatan pertambangan.</p>
+          
+          <img src="images/home/kolaborasi.jpg" alt="Pelatihan Pertambangan untuk Masyarakat Lokal">
+          
+          <h2>Kolaborasi dengan Institusi Pendidikan</h2>
+          
+          <p>Dalam penyelenggaraan program pelatihan ini, PLN BBN bekerjasama dengan Politeknik Pertambangan Jambi dan beberapa perusahaan kontraktor pertambangan. Kolaborasi ini memastikan bahwa materi pelatihan sesuai dengan kebutuhan industri dan standar kompetensi yang diakui.</p>
+          
+          <p>"Kami mengapresiasi inisiatif PLN BBN dalam menyelenggarakan program pelatihan ini. Kolaborasi antara industri dan institusi pendidikan sangat penting untuk memastikan bahwa lulusan memiliki keterampilan yang sesuai dengan kebutuhan pasar kerja," kata Direktur Politeknik Pertambangan Jambi, Dr. Bambang Hermanto.</p>
+          
+          <blockquote>
+            "Program pelatihan ini merupakan wujud nyata komitmen kami untuk tumbuh bersama masyarakat sekitar. Kami ingin memastikan bahwa kehadiran PLN BBN memberikan dampak positif bagi peningkatan kesejahteraan masyarakat," ujar Kanapi Subur Dwiyanto.
+          </blockquote>
+          
+          <h2>Peluang Kerja dan Magang</h2>
+          
+          <p>Sebagai tindak lanjut dari program pelatihan, PLN BBN dan perusahaan kontraktor pertambangan menawarkan peluang kerja dan program magang bagi peserta yang menunjukkan kinerja terbaik. Hal ini diharapkan dapat membuka jalan bagi masyarakat lokal untuk berkarir di industri pertambangan.</p>
+          
+          <p>"Kami berkomitmen untuk memprioritaskan tenaga kerja lokal dalam operasional kami. Program pelatihan ini merupakan salah satu upaya untuk memastikan bahwa masyarakat lokal memiliki kualifikasi yang dibutuhkan," jelas Direktur SDM PLN BBN, Ibu Ratna Dewi.</p>
+          
+          <h2>Tanggapan Masyarakat</h2>
+          
+          <p>Masyarakat lokal menyambut positif program pelatihan yang diselenggarakan oleh PLN BBN. Salah satu peserta, Ahmad Fauzi (28) dari Desa Sungai Gelam, mengungkapkan apresiasinya terhadap program ini.</p>
+          
+          <p>"Saya sangat berterima kasih kepada PLN BBN yang telah memberikan kesempatan bagi kami untuk mengikuti pelatihan ini. Sebelumnya, saya hanya bekerja sebagai petani dengan penghasilan yang tidak menentu. Dengan keterampilan baru ini, saya berharap bisa mendapatkan pekerjaan yang lebih baik di sektor pertambangan," ujar Ahmad.</p>
+          
+          <h2>Program CSR Berkelanjutan</h2>
+          
+          <p>Program pelatihan pertambangan ini merupakan bagian dari rangkaian program CSR berkelanjutan yang dilaksanakan oleh PLN BBN. Sebelumnya, perusahaan telah menyelenggarakan berbagai program pemberdayaan masyarakat, termasuk pengembangan UMKM, pelatihan kewirausahaan, dan program beasiswa untuk pelajar berprestasi dari keluarga kurang mampu.</p>
+          
+          <p>"Kami berkomitmen untuk terus mengembangkan program CSR yang berdampak nyata bagi peningkatan kesejahteraan masyarakat. Ke depan, kami akan fokus pada program-program yang mendukung kemandirian ekonomi masyarakat dan pelestarian lingkungan," tutup Kanapi.</p>
+        `
+      },
+      {
+        id: "5",
+        title: "Kunjungan Kerja Menteri ESDM ke Tambang PLN Batubara Niaga",
+        image: "images/home/inovasi.jpg",
+        date: "20 Maret 2024",
+        category: "event",
+        excerpt: "Menteri Energi dan Sumber Daya Mineral melakukan kunjungan kerja ke lokasi tambang PLN Batubara Niaga di Jambi untuk meninjau operasional tambang.",
+        content: `
+          <p>Jambi, 20 Maret 2024 - Menteri Energi dan Sumber Daya Mineral (ESDM), Bapak Arifin Tasrif, melakukan kunjungan kerja ke lokasi tambang PT PLN Batubara Niaga (PLN BBN) di Kabupaten Muaro Jambi, Provinsi Jambi. Kunjungan yang berlangsung selama dua hari ini bertujuan untuk meninjau langsung operasional tambang dan implementasi praktik pertambangan yang berkelanjutan.</p>
+          
+          <p>Menteri ESDM didampingi oleh Direktur Jenderal Mineral dan Batubara, Direktur Utama PLN, dan jajaran direksi PLN BBN dalam kunjungan tersebut. Rombongan menteri mengunjungi berbagai fasilitas tambang, termasuk area penambangan aktif, fasilitas pengolahan batubara, dan area reklamasi pasca tambang.</p>
+          
+          <h2>Apresiasi Praktik Pertambangan Berkelanjutan</h2>
+          
+          <p>"Saya mengapresiasi komitmen PLN BBN dalam menerapkan praktik pertambangan yang baik dan berkelanjutan. Operasional tambang yang kami lihat telah memenuhi standar keselamatan, lingkungan, dan sosial yang tinggi," ujar Menteri ESDM dalam sambutannya di lokasi tambang.</p>
+          
+          <p>Menteri juga menekankan pentingnya keseimbangan antara pemanfaatan sumber daya batubara untuk ketahanan energi nasional dan upaya pelestarian lingkungan. "Batubara masih menjadi sumber energi primer yang penting bagi Indonesia, namun pemanfaatannya harus dilakukan dengan memperhatikan aspek lingkungan dan sosial," tambahnya.</p>
+          
+          <img src="images/home/inovasi.jpg" alt="Kunjungan Menteri ESDM ke Tambang PLN Batubara Niaga">
+          
+          <h2>Inovasi Teknologi Pertambangan</h2>
+          
+          <p>Dalam kunjungan tersebut, PLN BBN memperkenalkan berbagai inovasi teknologi yang diterapkan dalam operasional tambang, termasuk sistem pemantauan lingkungan real-time, teknologi penambangan presisi untuk meminimalkan dampak lingkungan, dan metode reklamasi progresif yang memungkinkan rehabilitasi lahan segera setelah aktivitas penambangan selesai.</p>
+          
+          <p>"Kami terus berinovasi untuk meningkatkan efisiensi operasional dan meminimalkan dampak lingkungan dari kegiatan penambangan. Teknologi menjadi kunci dalam mewujudkan praktik pertambangan yang berkelanjutan," jelas Direktur Utama PLN BBN, Bapak Kanapi Subur Dwiyanto.</p>
+          
+          <blockquote>
+            "Kunjungan Menteri ESDM ini menjadi motivasi bagi kami untuk terus meningkatkan standar operasional dan komitmen terhadap praktik pertambangan yang berkelanjutan," ujar Kanapi.
+          </blockquote>
+          
+          <h2>Kontribusi terhadap Ketahanan Energi</h2>
+          
+          <p>Tambang batubara yang dikelola oleh PLN BBN di Jambi memiliki kapasitas produksi 5 juta ton per tahun dan memasok batubara untuk berbagai pembangkit listrik tenaga uap (PLTU) milik PLN di Sumatera dan Jawa. Keberadaan tambang ini menjadi salah satu pilar penting dalam menjamin ketahanan energi nasional, khususnya dalam penyediaan listrik.</p>
+          
+          <p>Direktur Utama PLN, Bapak Darmawan Prasodjo, yang turut hadir dalam kunjungan tersebut, menekankan pentingnya jaminan pasokan batubara untuk operasional pembangkit listrik PLN. "Ketersediaan pasokan batubara yang andal dan berkualitas menjadi kunci dalam menjaga keandalan sistem ketenagalistrikan nasional," ujarnya.</p>
+          
+          <h2>Program Pemberdayaan Masyarakat</h2>
+          
+          <p>Selain meninjau operasional tambang, Menteri ESDM juga mengunjungi beberapa program pemberdayaan masyarakat yang dilaksanakan oleh PLN BBN di sekitar area tambang. Program-program tersebut mencakup pengembangan pertanian terpadu di lahan reklamasi, pelatihan keterampilan bagi masyarakat lokal, dan pembangunan infrastruktur sosial seperti sekolah dan pusat kesehatan masyarakat.</p>
+          
+          <p>"Kami berkomitmen untuk memastikan bahwa kehadiran PLN BBN memberikan manfaat nyata bagi masyarakat sekitar. Program pemberdayaan masyarakat menjadi bagian integral dari operasional kami," kata Direktur CSR dan Lingkungan PLN BBN, Ibu Siti Nuraini.</p>
+          
+          <h2>Arahan Menteri</h2>
+          
+          <p>Di akhir kunjungan, Menteri ESDM memberikan beberapa arahan kepada PLN BBN, termasuk pentingnya peningkatan efisiensi operasional, pengembangan teknologi ramah lingkungan, dan penguatan program pemberdayaan masyarakat. Menteri juga mendorong PLN BBN untuk mulai mempersiapkan strategi transisi energi jangka panjang, sejalan dengan komitmen Indonesia untuk mencapai net zero emission pada tahun 2060.</p>
+          
+          <p>"Meskipun batubara masih menjadi sumber energi penting saat ini, kita perlu mulai mempersiapkan strategi transisi menuju energi yang lebih bersih dan berkelanjutan. PLN BBN sebagai bagian dari PLN Group harus menjadi pionir dalam transisi ini," pesan Menteri ESDM.</p>
+          
+          <p>Kunjungan kerja Menteri ESDM ke tambang PLN BBN di Jambi ini menjadi momentum penting dalam penguatan sinergi antara pemerintah dan BUMN dalam pengelolaan sumber daya energi nasional yang berkelanjutan.</p>
+        `
+      },
+      {
+        id: "6",
+        title: "PLN Batubara Niaga Jalin Kerjasama dengan Perusahaan Logistik",
+        image: "images/home/Energi.jpg",
+        date: "15 Maret 2024",
+        category: "business",
+        excerpt: "Untuk meningkatkan efisiensi distribusi batubara, PLN Batubara Niaga menjalin kerjasama strategis dengan perusahaan logistik terkemuka.",
+        content: `
+          <p>Jakarta, 15 Maret 2024 - PT PLN Batubara Niaga (PLN BBN) menandatangani perjanjian kerjasama strategis dengan PT Pelayaran Bahtera Adhiguna (BAG), anak perusahaan PLN yang bergerak di bidang logistik dan transportasi laut. Kerjasama ini bertujuan untuk meningkatkan efisiensi dan keandalan distribusi batubara ke berbagai pembangkit listrik tenaga uap (PLTU) milik PLN di seluruh Indonesia.</p>
+          
+          <p>Penandatanganan perjanjian dilakukan oleh Direktur Utama PLN BBN, Bapak Kanapi Subur Dwiyanto, dan Direktur Utama PT BAG, Bapak Aryanto Wijaya, di Kantor Pusat PLN di Jakarta, Jumat (15/3). Acara tersebut disaksikan oleh Direktur Utama PLN, Bapak Darmawan Prasodjo, dan jajaran direksi kedua perusahaan.</p>
+          
+          <h2>Sinergi Antar Anak Perusahaan PLN</h2>
+          
+          <p>"Kerjasama ini merupakan wujud sinergi antar anak perusahaan PLN dalam mendukung ketahanan energi nasional. Dengan mengoptimalkan kapabilitas masing-masing perusahaan, kami dapat meningkatkan efisiensi dan keandalan rantai pasok batubara untuk pembangkit listrik PLN," ujar Kanapi dalam sambutannya.</p>
+          
+          <p>Direktur Utama PT BAG, Aryanto Wijaya, menambahkan bahwa kerjasama ini akan memanfaatkan armada kapal dan infrastruktur logistik yang dimiliki oleh PT BAG untuk mendukung distribusi batubara yang dikelola oleh PLN BBN.</p>
+          
+          <img src="images/home/Energi.jpg" alt="Penandatanganan Kerjasama PLN Batubara Niaga dengan Perusahaan Logistik">
+          
+          <h2>Cakupan Kerjasama</h2>
+          
+          <p>Kerjasama strategis ini mencakup beberapa aspek penting dalam rantai pasok batubara, termasuk:</p>
+          
+          <ul>
+            <li>Pengangkutan batubara dari pelabuhan muat ke pelabuhan bongkar di lokasi PLTU</li>
+            <li>Pengembangan infrastruktur logistik terintegrasi</li>
+            <li>Implementasi sistem manajemen transportasi digital</li>
+            <li>Optimasi rute dan jadwal pengiriman batubara</li>
+            <li>Pengembangan kapasitas sumber daya manusia di bidang logistik</li>
+          </ul>
+          
+          <p>"Melalui kerjasama ini, kami menargetkan peningkatan efisiensi biaya transportasi hingga 15% dan pengurangan waktu pengiriman hingga 20%. Hal ini akan berdampak signifikan pada keandalan pasokan batubara untuk pembangkit listrik PLN," jelas Direktur Operasi PLN BBN, Bapak Hendra Kusuma.</p>
+          
+          <blockquote>
+            "Sinergi antar anak perusahaan PLN ini merupakan langkah strategis dalam mengoptimalkan rantai nilai energi dan mendukung transformasi PLN menuju penyediaan listrik yang andal, terjangkau, dan berkelanjutan," ujar Direktur Utama PLN, Darmawan Prasodjo.
+          </blockquote>
+          
+          <h2>Implementasi Teknologi Digital</h2>
+          
+          <p>Salah satu aspek penting dalam kerjasama ini adalah implementasi teknologi digital dalam manajemen transportasi batubara. Kedua perusahaan akan mengembangkan platform terintegrasi yang memungkinkan pemantauan real-time terhadap pergerakan batubara dari tambang hingga pembangkit listrik.</p>
+          
+          <p>"Kami akan mengimplementasikan teknologi Internet of Things (IoT) dan analitik data untuk mengoptimalkan operasional logistik. Dengan teknologi ini, kami dapat memantau posisi kapal, kondisi batubara, dan prediksi waktu kedatangan secara akurat," jelas Direktur Teknologi dan Inovasi PT BAG, Bapak Rudi Hartono.</p>
+          
+          <h2>Dampak terhadap Ketahanan Energi</h2>
+          
+          <p>Kerjasama strategis antara PLN BBN dan PT BAG diharapkan akan memberikan dampak positif terhadap ketahanan energi nasional, khususnya dalam menjamin ketersediaan pasokan batubara untuk pembangkit listrik PLN. Dengan distribusi batubara yang lebih efisien dan andal, PLN dapat memastikan operasional pembangkit listrik yang optimal dan meminimalkan risiko gangguan pasokan listrik.</p>
+          
+          <p>"Jaminan pasokan batubara yang tepat waktu dan sesuai spesifikasi menjadi kunci dalam menjaga keandalan operasional pembangkit listrik. Kerjasama ini akan memperkuat rantai pasok batubara dan mendukung upaya PLN dalam menyediakan listrik yang andal bagi masyarakat Indonesia," ujar Direktur Pengadaan Strategis PLN, Ibu Sripeni Inten Cahyani.</p>
+          
+          <h2>Rencana Implementasi</h2>
+          
+          <p>Implementasi kerjasama strategis ini akan dilakukan secara bertahap, dimulai dengan pengembangan sistem manajemen transportasi terintegrasi pada kuartal kedua tahun 2024. Selanjutnya, kedua perusahaan akan fokus pada optimasi rute dan jadwal pengiriman, serta pengembangan infrastruktur logistik di beberapa lokasi strategis.</p>
+          
+          <p>"Kami menargetkan implementasi penuh dari kerjasama ini pada akhir tahun 2024. Dengan demikian, manfaat dari sinergi ini dapat dirasakan secara optimal dalam mendukung operasional PLN," tutup Kanapi Subur Dwiyanto.</p>
+        `
+      },
+      {
+        id: "7",
+        title: "Program Beasiswa untuk Putra-Putri Daerah di Sekitar Tambang",
+        image: "images/home/kolaborasi.jpg",
+        date: "10 Maret 2024",
+        category: "csr",
+        excerpt: "PLN Batubara Niaga memberikan beasiswa pendidikan untuk putra-putri daerah di sekitar lokasi tambang sebagai bentuk kepedulian terhadap pendidikan.",
+        content: `
+          <p>Jambi, 10 Maret 2024 - PT PLN Batubara Niaga (PLN BBN) meluncurkan program beasiswa pendidikan untuk putra-putri daerah di sekitar lokasi tambang di Kabupaten Muaro Jambi, Provinsi Jambi. Program beasiswa ini akan memberikan bantuan pendidikan kepada 100 siswa berprestasi dari tingkat SD hingga perguruan tinggi.</p>
+          
+          <p>Peluncuran program beasiswa dilakukan oleh Direktur CSR dan Lingkungan PLN BBN, Ibu Siti Nuraini, bersama dengan Bupati Muaro Jambi, Bapak Masnah Busro, di Aula Kantor Bupati Muaro Jambi, Minggu (10/3). Acara tersebut dihadiri oleh pejabat daerah, kepala sekolah, dan perwakilan masyarakat dari lima desa di sekitar lokasi tambang.</p>
+          
+          <h2>Komitmen terhadap Pendidikan</h2>
+          
+          <p>"Program beasiswa ini merupakan wujud komitmen PLN BBN dalam mendukung peningkatan kualitas pendidikan di daerah operasional kami. Kami percaya bahwa pendidikan adalah kunci untuk memutus rantai kemiskinan dan membangun masa depan yang lebih baik bagi generasi muda," ujar Siti Nuraini dalam sambutannya.</p>
+          
+          <p>Bupati Muaro Jambi, Masnah Busro, menyambut baik inisiatif PLN BBN dan menekankan pentingnya kolaborasi antara pemerintah daerah, perusahaan, dan masyarakat dalam meningkatkan kualitas pendidikan di daerah.</p>
+          
+          <img src="images/home/kolaborasi.jpg" alt="Peluncuran Program Beasiswa PLN Batubara Niaga">
+          
+          <h2>Rincian Program Beasiswa</h2>
+          
+          <p>Program beasiswa PLN BBN akan memberikan bantuan pendidikan kepada 100 siswa dengan rincian sebagai berikut:</p>
+          
+          <ul>
+            <li>40 siswa tingkat SD dengan beasiswa sebesar Rp 3 juta per tahun</li>
+            <li>30 siswa tingkat SMP dengan beasiswa sebesar Rp 5 juta per tahun</li>
+            <li>20 siswa tingkat SMA dengan beasiswa sebesar Rp 7 juta per tahun</li>
+            <li>10 mahasiswa perguruan tinggi dengan beasiswa sebesar Rp 15 juta per tahun</li>
+          </ul>
+          
+          <p>Selain bantuan finansial, penerima beasiswa juga akan mendapatkan program pendampingan berupa bimbingan belajar, pelatihan pengembangan diri, dan kesempatan magang di PLN BBN bagi mahasiswa.</p>
+          
+          <blockquote>
+            "Kami tidak hanya memberikan bantuan finansial, tetapi juga pendampingan untuk memastikan bahwa para penerima beasiswa dapat mengembangkan potensi mereka secara optimal," jelas Siti Nuraini.
+          </blockquote>
+          
+          <h2>Kriteria dan Proses Seleksi</h2>
+          
+          <p>Beasiswa PLN BBN ditujukan untuk siswa dan mahasiswa yang berasal dari lima desa di sekitar lokasi tambang, yaitu Desa Sungai Gelam, Desa Kebon IX, Desa Tanjung Sari, Desa Muaro Jambi, dan Desa Teluk Jambu. Kriteria utama penerima beasiswa adalah prestasi akademik yang baik dan berasal dari keluarga kurang mampu.</p>
+          
+          <p>"Proses seleksi akan dilakukan secara transparan dan melibatkan pihak sekolah, pemerintah desa, dan tim independen. Kami ingin memastikan bahwa beasiswa ini diberikan kepada mereka yang benar-benar membutuhkan dan memiliki potensi untuk berkembang," kata Koordinator Program Beasiswa PLN BBN, Bapak Ahmad Faisal.</p>
+          
+          <h2>Dampak Program</h2>
+          
+          <p>Program beasiswa PLN BBN diharapkan dapat memberikan dampak positif bagi peningkatan kualitas pendidikan di daerah sekitar tambang. Dengan adanya bantuan pendidikan, siswa dan mahasiswa dari keluarga kurang mampu memiliki kesempatan lebih besar untuk melanjutkan pendidikan ke jenjang yang lebih tinggi.</p>
+          
+          <p>"Kami berharap program ini dapat melahirkan generasi muda yang berkualitas dan mampu berkontribusi dalam pembangunan daerah. Ke depan, mereka bisa menjadi agen perubahan yang membawa kemajuan bagi masyarakat," ujar Kepala Dinas Pendidikan Kabupaten Muaro Jambi, Bapak Suharno, yang hadir dalam acara tersebut.</p>
+          
+          <h2>Testimoni Penerima Beasiswa</h2>
+          
+          <p>Salah satu penerima beasiswa, Anisa Rahma (17), siswa kelas 12 SMAN 1 Muaro Jambi, mengungkapkan rasa syukur dan terima kasihnya atas kesempatan yang diberikan oleh PLN BBN.</p>
+          
+          <p>"Saya sangat bersyukur dan berterima kasih kepada PLN BBN yang telah memberikan beasiswa ini. Beasiswa ini sangat membantu saya untuk melanjutkan pendidikan ke perguruan tinggi, yang selama ini menjadi kendala karena keterbatasan ekonomi keluarga," ujar Anisa yang bercita-cita menjadi dokter.</p>
+          
+          <h2>Keberlanjutan Program</h2>
+          
+          <p>PLN BBN berkomitmen untuk melanjutkan program beasiswa ini secara berkelanjutan sebagai bagian dari program CSR jangka panjang perusahaan. Setiap tahun, jumlah penerima beasiswa akan ditingkatkan sesuai dengan kebutuhan dan kapasitas perusahaan.</p>
+          
+          <p>"Program beasiswa ini akan menjadi program unggulan CSR PLN BBN yang akan terus kami kembangkan. Kami berkomitmen untuk berkontribusi dalam peningkatan kualitas pendidikan sebagai investasi jangka panjang bagi pembangunan sumber daya manusia di daerah operasional kami," tutup Direktur Utama PLN BBN, Bapak Kanapi Subur Dwiyanto.</p>
+        `
+      },
+      {
+        id: "8",
+        title: "PLN Batubara Niaga Raih Sertifikasi ISO 14001:2015",
+        image: "images/home/inovasi.jpg",
+        date: "5 Maret 2024",
+        category: "award",
+        excerpt: "Komitmen terhadap pengelolaan lingkungan yang berkelanjutan, PLN Batubara Niaga berhasil meraih sertifikasi ISO 14001:2015.",
+        content: `
+          <p>Jakarta, 5 Maret 2024 - PT PLN Batubara Niaga (PLN BBN) berhasil meraih sertifikasi ISO 14001:2015 untuk Sistem Manajemen Lingkungan. Sertifikasi ini merupakan pengakuan internasional atas komitmen dan implementasi praktik pengelolaan lingkungan yang berkelanjutan dalam operasional perusahaan.</p>
+          
+          <p>Sertifikat ISO 14001:2015 diserahkan oleh Direktur PT TÜV Rheinland Indonesia, Bapak Michael Tjahjadi, kepada Direktur Utama PLN BBN, Bapak Kanapi Subur Dwiyanto, dalam seremoni yang diselenggarakan di Kantor Pusat PLN BBN di Jakarta, Selasa (5/3).</p>
+          
+          <h2>Komitmen terhadap Lingkungan</h2>
+          
+          <p>"Sertifikasi ISO 14001:2015 ini merupakan bukti komitmen PLN BBN dalam menerapkan praktik pengelolaan lingkungan yang berkelanjutan dalam seluruh aspek operasional perusahaan. Kami menyadari bahwa industri pertambangan memiliki dampak signifikan terhadap lingkungan, oleh karena itu kami berkomitmen untuk menerapkan standar tertinggi dalam pengelolaan lingkungan," ujar Kanapi dalam sambutannya.</p>
+          
+          <p>Direktur PT TÜV Rheinland Indonesia, Michael Tjahjadi, menyampaikan bahwa PLN BBN telah memenuhi semua persyaratan dan standar yang ditetapkan dalam ISO 14001:2015 setelah melalui proses audit yang komprehensif.</p>
+          
+          <img src="images/home/inovasi.jpg" alt="Penyerahan Sertifikasi ISO 14001:2015 kepada PLN Batubara Niaga">
+          
+          <h2>Implementasi Sistem Manajemen Lingkungan</h2>
+          
+          <p>ISO 14001:2015 merupakan standar internasional untuk sistem manajemen lingkungan yang membantu organisasi dalam meningkatkan kinerja lingkungan melalui penggunaan sumber daya yang lebih efisien dan pengurangan limbah. Standar ini mencakup berbagai aspek pengelolaan lingkungan, termasuk identifikasi dan pengendalian dampak lingkungan, pemenuhan kewajiban hukum, dan peningkatan berkelanjutan dalam kinerja lingkungan.</p>
+          
+          <p>Direktur Operasi dan Lingkungan PLN BBN, Bapak Hendra Kusuma, menjelaskan bahwa perusahaan telah mengimplementasikan berbagai program dan inisiatif dalam rangka memenuhi standar ISO 14001:2015, termasuk:</p>
+          
+          <ul>
+            <li>Pengembangan kebijakan lingkungan yang komprehensif</li>
+            <li>Implementasi sistem pemantauan lingkungan real-time</li>
+            <li>Pengelolaan limbah yang terintegrasi dan berkelanjutan</li>
+            <li>Program reklamasi dan rehabilitasi lahan pasca tambang</li>
+            <li>Pengurangan emisi gas rumah kaca dalam operasional</li>
+            <li>Pelatihan dan pengembangan kesadaran lingkungan bagi seluruh karyawan</li>
+          </ul>
+          
+          <blockquote>
+            "Sertifikasi ISO 14001:2015 bukan hanya sebuah pencapaian, tetapi juga komitmen kami untuk terus meningkatkan kinerja lingkungan secara berkelanjutan. Ini adalah bagian dari perjalanan kami menuju praktik pertambangan yang lebih berkelanjutan dan bertanggung jawab," ujar Kanapi Subur Dwiyanto.
+          </blockquote>
+          
+          <h2>Manfaat Sertifikasi</h2>
+          
+          <p>Sertifikasi ISO 14001:2015 memberikan berbagai manfaat bagi PLN BBN, termasuk:</p>
+          
+          <ul>
+            <li>Peningkatan efisiensi operasional melalui penggunaan sumber daya yang lebih optimal</li>
+            <li>Pengurangan risiko lingkungan dan kepatuhan terhadap regulasi</li>
+            <li>Peningkatan kepercayaan dari pemangku kepentingan, termasuk pemerintah, masyarakat, dan mitra bisnis</li>
+            <li>Keunggulan kompetitif dalam industri pertambangan</li>
+            <li>Kontribusi terhadap tujuan pembangunan berkelanjutan</li>
+          </ul>
+          
+          <p>"Dengan sertifikasi ini, PLN BBN dapat menunjukkan komitmen dan kapabilitas dalam mengelola dampak lingkungan dari operasional pertambangan. Hal ini sejalan dengan visi PLN Group untuk menjadi perusahaan energi yang berkelanjutan dan bertanggung jawab," kata Direktur Utama PLN EPI, Bapak Iwan Agung Firstantara, yang hadir dalam seremoni tersebut.</p>
+          
+          <h2>Langkah Selanjutnya</h2>
+          
+          <p>Setelah meraih sertifikasi ISO 14001:2015, PLN BBN berkomitmen untuk terus meningkatkan kinerja lingkungan melalui berbagai program dan inisiatif. Perusahaan akan fokus pada pengembangan teknologi ramah lingkungan, peningkatan efisiensi energi, dan implementasi praktik pertambangan berkelanjutan.</p>
+          
+          <p>"Kami akan terus berinovasi dan mengembangkan praktik terbaik dalam pengelolaan lingkungan. Sertifikasi ISO 14001:2015 menjadi landasan bagi kami untuk mencapai standar yang lebih tinggi dalam kinerja lingkungan," tutup Direktur Operasi dan Lingkungan PLN BBN, Hendra Kusuma.</p>
+          
+          <p>Pencapaian sertifikasi ISO 14001:2015 oleh PLN BBN menunjukkan komitmen perusahaan dalam menjalankan operasional yang berkelanjutan dan bertanggung jawab terhadap lingkungan, sejalan dengan visi PLN Group untuk mendukung transisi energi dan pembangunan berkelanjutan di Indonesia.</p>
+        `
+      },
+      {
+        id: "9",
+        title: "Rapat Umum Pemegang Saham Tahunan PLN Batubara Niaga",
+        image: "images/home/news3.jpg",
+        date: "28 Februari 2024",
+        category: "event",
+        excerpt: "PLN Batubara Niaga menggelar Rapat Umum Pemegang Saham Tahunan untuk membahas kinerja perusahaan dan rencana strategis ke depan.",
+        content: `
+          <p>Jakarta, 28 Februari 2024 - PT PLN Batubara Niaga (PLN BBN) menggelar Rapat Umum Pemegang Saham Tahunan (RUPST) untuk tahun buku 2023 di Hotel Mulia, Jakarta. RUPST ini dihadiri oleh perwakilan pemegang saham, jajaran direksi, dan dewan komisaris perusahaan.</p>
+          
+          <p>RUPST PLN BBN dipimpin oleh Komisaris Utama, Bapak Harlen, dan dihadiri oleh perwakilan pemegang saham mayoritas, yaitu PT PLN Energi Primer Indonesia (PLN EPI) yang diwakili oleh Direktur Utama, Bapak Iwan Agung Firstantara.</p>
+          
+          <h2>Kinerja Keuangan 2023</h2>
+          
+          <p>Dalam RUPST tersebut, Direktur Utama PLN BBN, Bapak Kanapi Subur Dwiyanto, memaparkan kinerja keuangan perusahaan sepanjang tahun 2023. PLN BBN berhasil membukukan pendapatan sebesar Rp 6,3 triliun, meningkat 18% dibandingkan tahun sebelumnya. Laba bersih perusahaan mencapai Rp 850 miliar, tumbuh 25% dari tahun 2022.</p>
+          
+          <p>"Pencapaian kinerja keuangan yang positif ini merupakan hasil dari implementasi strategi bisnis yang tepat, peningkatan efisiensi operasional, dan optimasi rantai pasok batubara. Kami berhasil meningkatkan volume penjualan batubara menjadi 42 juta ton pada tahun 2023, naik 22% dari tahun sebelumnya," jelas Kanapi.</p>
+          
+          <img src="images/home/news3.jpg" alt="Rapat Umum Pemegang Saham Tahunan PLN Batubara Niaga">
+          
+          <h2>Pembagian Dividen</h2>
+          
+          <p>RUPST menyetujui pembagian dividen sebesar Rp 600 miliar atau sekitar 70% dari laba bersih tahun 2023. Dividen ini akan dibayarkan kepada pemegang saham sesuai dengan proporsi kepemilikan saham.</p>
+          
+          <p>"Pembagian dividen ini mencerminkan komitmen PLN BBN untuk memberikan nilai tambah bagi pemegang saham, sekaligus mempertahankan struktur permodalan yang kuat untuk mendukung pengembangan bisnis ke depan," ujar Direktur Keuangan PLN BBN, Ibu Sari Wijayanti.</p>
+          
+          <blockquote>
+            "Kinerja PLN BBN yang solid memberikan kontribusi signifikan terhadap konsolidasi keuangan PLN Group. Kami mengapresiasi upaya manajemen dalam meningkatkan kinerja perusahaan di tengah berbagai tantangan industri," kata Direktur Utama PLN EPI, Iwan Agung Firstantara.
+          </blockquote>
+          
+          <h2>Pengesahan Laporan Tahunan</h2>
+          
+          <p>RUPST juga mengesahkan Laporan Tahunan dan Laporan Keuangan PLN BBN untuk tahun buku 2023 yang telah diaudit oleh Kantor Akuntan Publik (KAP) Purwantono, Sungkoro & Surja (anggota Ernst & Young Global) dengan opini "Wajar Tanpa Pengecualian".</p>
+          
+          <p>Komisaris Utama PLN BBN, Harlen, menyampaikan apresiasi kepada jajaran direksi dan seluruh karyawan atas dedikasi dan kerja keras yang telah menghasilkan kinerja yang baik sepanjang tahun 2023.</p>
+          
+          <p>"Dewan Komisaris mengapresiasi kinerja Direksi dan seluruh karyawan PLN BBN yang telah berhasil mencapai target-target yang ditetapkan. Pencapaian ini menjadi modal penting bagi perusahaan untuk terus berkembang dan berkontribusi dalam mendukung ketahanan energi nasional," ujar Harlen.</p>
+          
+          <h2>Rencana Strategis 2024</h2>
+          
+          <p>Dalam RUPST tersebut, Direksi PLN BBN juga memaparkan rencana strategis perusahaan untuk tahun 2024. Beberapa inisiatif strategis yang akan menjadi fokus PLN BBN pada tahun 2024 antara lain:</p>
+          
+          <ul>
+            <li>Peningkatan kapasitas produksi tambang di Jambi menjadi 7 juta ton per tahun</li>
+            <li>Pengembangan infrastruktur logistik terintegrasi</li>
+            <li>Implementasi teknologi digital dalam pengelolaan rantai pasok batubara</li>
+            <li>Ekspansi portofolio bisnis ke energi terbarukan</li>
+            <li>Penguatan program tanggung jawab sosial dan lingkungan</li>
+          </ul>
+          
+          <p>"Kami menargetkan pertumbuhan pendapatan sebesar 15% pada tahun 2024, didukung oleh peningkatan volume penjualan dan pengembangan bisnis baru. Kami juga akan fokus pada peningkatan efisiensi operasional untuk memastikan pertumbuhan yang berkelanjutan," jelas Kanapi.</p>
+          
+          <h2>Perubahan Susunan Pengurus</h2>
+          
+          <p>RUPST juga menyetujui perubahan susunan Dewan Komisaris PLN BBN dengan mengangkat Bapak Agus Sutanto sebagai Komisaris menggantikan Bapak Bambang Dwiyanto yang telah menyelesaikan masa jabatannya.</p>
+          
+          <p>"Kami mengucapkan terima kasih kepada Bapak Bambang Dwiyanto atas dedikasi dan kontribusinya selama menjabat sebagai Komisaris PLN BBN. Selamat datang kepada Bapak Agus Sutanto, kami yakin pengalaman dan keahlian beliau akan memberikan nilai tambah bagi pengembangan perusahaan ke depan," ujar Harlen.</p>
+          
+          <p>RUPST PLN BBN berlangsung lancar dan semua agenda rapat disetujui secara musyawarah mufakat oleh pemegang saham. Pencapaian kinerja yang positif pada tahun 2023 menjadi landasan yang kuat bagi PLN BBN untuk terus berkembang dan berkontribusi dalam mendukung ketahanan energi nasional.</p>
+        `
+      }
+    ];
+
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Function to set news content
+    function setNewsContent() {
+      const newsId = getUrlParameter('id');
+      const newsItem = newsData.find(item => item.id === newsId);
+      
+      if (newsItem) {
+        // Set page title
+        document.title = newsItem.title + " - PLN Batubara Niaga";
+        
+        // Set hero section
+        document.getElementById('heroSection').style.backgroundImage = `url('${newsItem.image}')`;
+        document.getElementById('newsTitle').textContent = newsItem.title;
+        document.getElementById('newsDate').textContent = newsItem.date;
+        document.getElementById('newsCategory').textContent = newsItem.category.charAt(0).toUpperCase() + newsItem.category.slice(1);
+        
+        // Set news content
+        document.getElementById('newsContent').innerHTML = newsItem.content;
+        
+        // Set share buttons
+        const pageUrl = encodeURIComponent(window.location.href);
+        const pageTitle = encodeURIComponent(newsItem.title);
+        
+        document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+        document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`;
+        document.getElementById('shareWhatsapp').href = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+        document.getElementById('shareLinkedin').href = `https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${pageTitle}`;
+        
+        // Show related news
+        showRelatedNews(newsItem);
+      } else {
+        // News not found
+        document.getElementById('heroSection').style.backgroundImage = `url('images/home/berita.jpeg')`;
+        document.getElementById('newsTitle').textContent = "Berita Tidak Ditemukan";
+        document.getElementById('newsDate').textContent = "";
+        document.getElementById('newsCategory').textContent = "";
+        document.getElementById('newsContent').innerHTML = `
+          <div class="text-center py-5">
+            <i class="bi bi-exclamation-triangle" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
+            <h3>Berita Tidak Ditemukan</h3>
+            <p>Maaf, berita yang Anda cari tidak ditemukan atau telah dihapus.</p>
+            <a href="news.html" class="btn btn-primary mt-3">Kembali ke Halaman Berita</a>
+          </div>
+        `;
+      }
+    }
+
+    // Function to show related news
+    function showRelatedNews(currentNews) {
+      const relatedNewsContainer = document.getElementById('relatedNewsContainer');
+      
+      // Find related news based on category
+      let relatedNews = newsData.filter(item => 
+        item.category === currentNews.category && 
+        item.id !== currentNews.id
+      );
+      
+      // If not enough related news by category, add latest news
+      if (relatedNews.length < 3) {
+        const otherNews = newsData.filter(item => 
+          item.category !== currentNews.category && 
+          item.id !== currentNews.id
+        );
+        
+        relatedNews = [...relatedNews, ...otherNews];
+      }
+      
+      // Limit to 3 related news
+      relatedNews = relatedNews.slice(0, 3);
+      
+      // Render related news
+      relatedNewsContainer.innerHTML = '';
+      
+      relatedNews.forEach((item, index) => {
+        const col = document.createElement('div');
+        col.className = 'col-lg-4 col-md-6';
+        col.setAttribute('data-aos', 'fade-up');
+        col.setAttribute('data-aos-duration', '800');
+        col.setAttribute('data-aos-delay', (index * 100).toString());
+        
+        col.innerHTML = `
+          <a href="news-detail.html?id=${item.id}" class="related-card">
+            <div class="related-img-container">
+              <img src="${item.image}" alt="${item.title}" class="related-img">
+              <div class="related-date">${item.date}</div>
+            </div>
+            <div class="related-content">
+              <h3 class="related-title-card">${item.title}</h3>
+              <p class="related-excerpt">${item.excerpt}</p>
+              <span class="related-read-more">Baca Selengkapnya</span>
+            </div>
+          </a>
+        `;
+        
+        relatedNewsContainer.appendChild(col);
+      });
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      setNewsContent();
+    });
+  </script>
+</body>
+</html>

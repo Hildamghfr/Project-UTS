@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kontak Kami - PLN Batubara Niaga</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #005e54;
+      --primary-dark: #003d39;
+      --primary-light: #00756A;
+      --secondary-color: #f8d000;
+      --text-color: #333;
+      --light-bg: #f4f8fb;
+      --transition: all 0.3s ease-in-out;
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --border-radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 15px 30px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      transition: var(--transition);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header.scrolled {
+      padding: 10px 30px;
+      background-color: rgba(0, 94, 84, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .logo-container img {
+      height: 50px;
+      margin-right: 15px;
+      transition: var(--transition);
+    }
+
+    header.scrolled .logo-container img {
+      height: 40px;
+    }
+
+    .logo-container strong {
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 5px 0;
+      transition: var(--transition);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 1001;
+      transition: var(--transition);
+    }
+
+    .menu-toggle:hover {
+      color: var(--secondary-color);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url(images/home/Energi.jpg) center/cover no-repeat;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+      text-align: center;
+      margin-top: 80px;
+      background-attachment: fixed;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero h2 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* MAIN */
+    main {
+      padding: 60px 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 30px;
+      box-shadow: var(--box-shadow);
+      border: none;
+      height: 100%;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background-color: rgba(0, 94, 84, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: var(--primary-light);
+      font-size: 1.8rem;
+    }
+
+    .card h3 {
+      margin: 0;
+      color: var(--primary-light);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .contact-info {
+      margin-top: 20px;
+    }
+
+    .contact-item {
+      display: flex;
+      margin-bottom: 15px;
+      align-items: flex-start;
+    }
+
+    .contact-item i {
+      color: var(--primary-light);
+      margin-right: 15px;
+      font-size: 1.2rem;
+      margin-top: 3px;
+    }
+
+    .contact-text {
+      flex: 1;
+    }
+
+    .contact-text strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(0, 94, 84, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-link:hover {
+      background-color: var(--primary-light);
+      color: white;
+      transform: translateY(-5px);
+    }
+
+    /* FORM */
+    .form-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 40px;
+      box-shadow: var(--box-shadow);
+      margin-bottom: 60px;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-header h3 {
+      color: var(--primary-light);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .form-header p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(0, 117, 106, 0.1);
+      outline: none;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      box-shadow: 0 5px 15px rgba(0, 94, 84, 0.2);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 94, 84, 0.3);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    /* MAP */
+    .map-container {
+      position: relative;
+      margin-bottom: 60px;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+    }
+
+    .map {
+      width: 100%;
+      height: 500px;
+      border: none;
+      display: block;
+    }
+
+    .map-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.05);
+      pointer-events: none;
+      border-radius: var(--border-radius);
+    }
+
+    /* FAQ SECTION */
+    .faq-section {
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h3 {
+      color: var(--primary-light);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .accordion-item {
+      border: none;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .accordion-button {
+      padding: 20px;
+      font-weight: 600;
+      color: var(--text-color);
+      background-color: white;
+    }
+
+    .accordion-button:not(.collapsed) {
+      color: var(--primary-light);
+      background-color: rgba(0, 94, 84, 0.05);
+      box-shadow: none;
+    }
+
+    .accordion-button:focus {
+      box-shadow: none;
+      border-color: rgba(0, 94, 84, 0.1);
+    }
+
+    .accordion-button::after {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23005e54'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    .accordion-body {
+      padding: 20px;
+      color: #666;
+    }
+
+    /* FOOTER */
+    footer {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 60px 0 30px;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-column h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--secondary-color);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .footer-links a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-contact-item {
+      display: flex;
+      margin-bottom: 15px;
+      align-items: flex-start;
+    }
+
+    .footer-contact-item i {
+      color: var(--secondary-color);
+      margin-right: 15px;
+      font-size: 1.2rem;
+      margin-top: 3px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .footer-social a:hover {
+      background-color: var(--secondary-color);
+      color: var(--primary-dark);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* BACK TO TOP */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 999;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-5px);
+    }
+
+    /* RESPONSIVE NAV */
+    @media (max-width: 992px) {
+      nav {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        padding: 100px 30px 30px;
+        transition: var(--transition);
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      nav.show {
+        right: 0;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        z-index: 999;
+      }
+
+      .overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        height: 40vh;
+      }
+
+      .hero h2 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 40px 20px;
+      }
+
+      .form-card {
+        padding: 30px 20px;
+      }
+
+      .map {
+        height: 350px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+
+      .card h3 {
+        font-size: 1.3rem;
+      }
+
+      .form-card {
+        padding: 25px 15px;
+      }
+
+      .back-to-top {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay for mobile menu -->
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+    <i class="bi bi-arrow-up"></i>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="images/home/logo.png" alt="Logo" />
+        <strong>PLN Batubara Niaga</strong>
+      </div>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="bi bi-list" id="menuIcon"></i>
+      </div>
+      <nav id="menu">
+        <a href="index.html">Beranda</a>
+        <a href="about.html">Tentang Kami</a>
+        <a href="news.html">Berita</a>
+        <a href="contact.html" class="active">Kontak</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+      <h2>Kontak Kami</h2>
+      <p>Hubungi kami untuk informasi lebih lanjut atau kerjasama</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Contact Info Cards -->
+    <div class="contact-container">
+      <div class="card" data-aos="fade-up" data-aos-duration="800">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="bi bi-geo-alt"></i>
+          </div>
+          <h3>Alamat Kantor</h3>
+        </div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="bi bi-building"></i>
+            <div class="contact-text">
+              <strong>Kantor Pusat</strong>
+              <p>Jl. Buncit Raya No.10, Kalibata, Pancoran, Jakarta Selatan, DKI Jakarta, 12740</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="bi bi-telephone"></i>
+          </div>
+          <h3>Hubungi Kami</h3>
+        </div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="bi bi-telephone"></i>
+            <div class="contact-text">
+              <strong>Telepon</strong>
+              <p>(021) 26963955</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-envelope"></i>
+            <div class="contact-text">
+              <strong>Email</strong>
+              <p>kontak@plnbatubaraniaga.co.id</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="bi bi-clock"></i>
+          </div>
+          <h3>Jam Operasional</h3>
+        </div>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="bi bi-calendar-week"></i>
+            <div class="contact-text">
+              <strong>Senin - Jumat</strong>
+              <p>08.00 - 17.00 WIB</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="bi bi-calendar-x"></i>
+            <div class="contact-text">
+              <strong>Sabtu - Minggu</strong>
+              <p>Tutup</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="form-card" data-aos="fade-up" data-aos-duration="1000">
+      <div class="form-header">
+        <h3>Kirim Pesan</h3>
+        <p>Isi formulir di bawah ini dan tim kami akan segera menghubungi Anda</p>
+      </div>
+      <form id="contactForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="name" class="form-label">Nama Lengkap</label>
+              <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap" required>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Masukkan email" required>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phone" class="form-label">Nomor Telepon</label>
+              <input type="tel" class="form-control" id="phone" placeholder="Masukkan nomor telepon">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="subject" class="form-label">Subjek</label>
+              <input type="text" class="form-control" id="subject" placeholder="Masukkan subjek pesan">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message" class="form-label">Pesan</label>
+          <textarea class="form-control" id="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          <i class="bi bi-send me-2"></i> Kirim Pesan
+        </button>
+      </form>
+    </div>
+
+    <!-- Map -->
+    <div class="map-container" data-aos="fade-up" data-aos-duration="1000">
+      <iframe
+        class="map"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2421882743983!2d106.82704377483195!3d-6.2302431608720935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e308b00ef9%3A0xb3548784fc132c83!2sJl.%20Hj.%20Tutty%20Alawiyah%20No.38%2C%20RT.3%2FRW.4%2C%20Kalibata%2C%20Kec.%20Pancoran%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta%2012740!5e0!3m2!1sid!2sid!4v1715519849863!5m2!1sid!2sid"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+      <div class="map-overlay"></div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section" data-aos="fade-up" data-aos-duration="1000">
+      <div class="section-title">
+        <h3>Pertanyaan Umum</h3>
+        <p>Temukan jawaban atas pertanyaan yang sering diajukan</p>
+      </div>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Apa saja layanan yang ditawarkan oleh PLN Batubara Niaga?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              PLN Batubara Niaga menawarkan berbagai layanan terkait pasokan batubara untuk pembangkit listrik, termasuk pengadaan batubara, manajemen rantai pasok, transportasi dan logistik, serta konsultasi energi. Kami berkomitmen untuk menyediakan pasokan batubara yang andal dan berkelanjutan untuk mendukung ketahanan energi nasional.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Bagaimana cara mengajukan kerjasama dengan PLN Batubara Niaga?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Untuk mengajukan kerjasama dengan PLN Batubara Niaga, Anda dapat mengirimkan proposal kerjasama melalui email ke kerjasama@plnbatubaraniaga.co.id atau mengisi formulir kontak di halaman ini dengan subjek "Pengajuan Kerjasama". Tim kami akan meninjau proposal Anda dan menghubungi Anda untuk diskusi lebih lanjut.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Apakah PLN Batubara Niaga menerima magang atau program pelatihan?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Ya, PLN Batubara Niaga menerima program magang dan pelatihan untuk mahasiswa dan fresh graduate. Program ini dirancang untuk memberikan pengalaman praktis dalam industri energi dan pertambangan. Untuk informasi lebih lanjut tentang program magang, silakan kirim email ke karir@plnbatubaraniaga.co.id dengan subjek "Program Magang".
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              Bagaimana PLN Batubara Niaga menerapkan praktik pertambangan yang berkelanjutan?
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              PLN Batubara Niaga berkomitmen untuk menerapkan praktik pertambangan yang berkelanjutan dan ramah lingkungan. Kami telah memperoleh sertifikasi ISO 14001:2015 untuk Sistem Manajemen Lingkungan dan secara konsisten memenuhi standar emisi dan pengelolaan limbah yang ditetapkan oleh pemerintah. Kami juga melakukan reklamasi dan rehabilitasi lahan bekas tambang untuk memulihkan kondisi lingkungan.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h4>Tentang Kami</h4>
+          <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">
+            PLN Batubara Niaga adalah perusahaan yang bergerak di bidang pengadaan dan distribusi batubara untuk mendukung ketahanan energi nasional.
+          </p>
+          <div class="footer-social">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter-x"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h4>Link Cepat</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="about.html">Tentang Kami</a></li>
+            <li><a href="news.html">Berita</a></li>
+            <li><a href="contact.html">Kontak</a></li>
+            <li><a href="#">Karir</a></li>
+            <li><a href="#">CSR</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Layanan</h4>
+          <ul class="footer-links">
+            <li><a href="#">Pengadaan Batubara</a></li>
+            <li><a href="#">Manajemen Rantai Pasok</a></li>
+            <li><a href="#">Transportasi & Logistik</a></li>
+            <li><a href="#">Konsultasi Energi</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Kontak Kami</h4>
+          <div class="footer-contact-item">
+            <i class="bi bi-geo-alt"></i>
+            <p>Jl. Buncit Raya No.10, Kalibata, Pancoran, Jakarta Selatan, DKI Jakarta, 12740</p>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-telephone"></i>
+            <p>(021) 26963955</p>
+          </div>
+          <div class="footer-contact-item">
+            <i class="bi bi-envelope"></i>
+            <p>kontak@plnbatubaraniaga.co.id</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 PT PLN Batubara Niaga. Project UTS Hilda (202332092).</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+
+    // Toggle Menu
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      const overlay = document.getElementById('overlay');
+      const menuIcon = document.getElementById('menuIcon');
+      
+      menu.classList.toggle('show');
+      overlay.classList.toggle('show');
+      
+      if (menu.classList.contains('show')) {
+        menuIcon.classList.remove('bi-list');
+        menuIcon.classList.add('bi-x-lg');
+      } else {
+        menuIcon.classList.remove('bi-x-lg');
+        menuIcon.classList.add('bi-list');
+      }
+    }
+
+    // Close Menu
+    function closeMenu() {
+      const menu = document.getElementById('menu');
+      const overlay = document.getElementById('overlay');
+      const menuIcon = document.getElementById('menuIcon');
+      
+      menu.classList.remove('show');
+      overlay.classList.remove('show');
+      menuIcon.classList.remove('bi-x-lg');
+      menuIcon.classList.add('bi-list');
+    }
+
+    // Scroll Header Effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      const backToTop = document.getElementById('backToTop');
+      
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+        backToTop.classList.add('show');
+      } else {
+        header.classList.remove('scrolled');
+        backToTop.classList.remove('show');
+      }
+    });
+
+    // Scroll to Top
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    // Form Submission
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // In a real application, you would send this data to a server
+      // For now, we'll just show an alert
+      alert(`Terima kasih, ${name}! Pesan Anda telah dikirim. Kami akan segera menghubungi Anda.`);
+      
+      // Reset form
+      this.reset();
+    });
+  </script>
+</body>
+</html>

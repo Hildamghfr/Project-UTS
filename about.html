@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang Kami - PLN Batubara Niaga</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #f8d000;
+      --dark-color: #1f1f1f;
+      --light-color: #f8f9fa;
+      --transition: all 0.3s ease-in-out;
+    }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background-color: #f8f9fa;
+    }
+
+    /* Header Styles */
+    .navbar {
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      height: 60px;
+      transition: var(--transition);
+    }
+
+    .navbar-brand strong {
+      margin-left: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      transition: var(--transition);
+    }
+
+    .navbar-scrolled {
+      background-color: white !important;
+      padding: 10px 0;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-scrolled .navbar-brand img {
+      height: 50px;
+    }
+
+    .navbar-scrolled .navbar-brand strong,
+    .navbar-scrolled .nav-link {
+      color: var(--dark-color) !important;
+    }
+
+    .nav-link {
+      color: white !important;
+      font-weight: 600;
+      margin: 0 10px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      font-weight: 400;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2rem;
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 80px 0;
+      background-color: white;
+    }
+
+    .section-title {
+      position: relative;
+      margin-bottom: 50px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    /* Tab Navigation */
+    .nav-tabs {
+      border: none;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: #555 !important;
+      font-weight: 600;
+      padding: 15px 25px;
+      border-radius: 0;
+      position: relative;
+    }
+
+    .nav-tabs .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: var(--transition);
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--primary-color) !important;
+      background-color: transparent;
+    }
+
+    .nav-tabs .nav-link.active::after,
+    .nav-tabs .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .tab-content {
+      padding: 20px;
+    }
+
+    .tab-pane {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* AKHLAK Cards - Enhanced with Wobble Animation */
+    .akhlak-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      background: white;
+      transform-origin: center;
+    }
+
+    .akhlak-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 86, 179, 0.05) 0%, rgba(248, 208, 0, 0.05) 100%);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .akhlak-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .akhlak-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Wobble Animation */
+    @keyframes wobble {
+      0% { transform: translateY(-15px) rotate(0deg); }
+      15% { transform: translateY(-15px) rotate(-5deg); }
+      30% { transform: translateY(-15px) rotate(3deg); }
+      45% { transform: translateY(-15px) rotate(-3deg); }
+      60% { transform: translateY(-15px) rotate(2deg); }
+      75% { transform: translateY(-15px) rotate(-1deg); }
+      100% { transform: translateY(-15px) rotate(0deg); }
+    }
+
+    .akhlak-card:hover {
+      animation: wobble 0.8s ease-in-out;
+    }
+
+    .akhlak-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 2rem;
+      color: white;
+      transition: all 0.4s ease;
+    }
+
+    .akhlak-card:hover .akhlak-icon {
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .akhlak-card:nth-child(1) .akhlak-icon {
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    }
+
+    .akhlak-card:nth-child(2) .akhlak-icon {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+    }
+
+    .akhlak-card:nth-child(3) .akhlak-icon {
+      background: linear-gradient(135deg, #f12711, #f5af19);
+    }
+
+    .akhlak-card:nth-child(4) .akhlak-icon {
+      background: linear-gradient(135deg, #ee0979, #ff6a00);
+    }
+
+    .akhlak-card:nth-child(5) .akhlak-icon {
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+    }
+
+    .akhlak-card:nth-child(6) .akhlak-icon {
+      background: linear-gradient(135deg, #834d9b, #d04ed6);
+    }
+
+    .akhlak-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--dark-color);
+      transition: all 0.3s ease;
+    }
+
+    .akhlak-card:hover .akhlak-title {
+      color: var(--primary-color);
+    }
+
+    .akhlak-desc {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .akhlak-card-body {
+      padding: 30px;
+      text-align: center;
+    }
+
+    /* Direksi Section */
+    .direksi-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .direksi-card {
+      text-align: center;
+      margin-bottom: 30px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .direksi-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .direksi-img-container {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 20px;
+      border: 5px solid white;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+    }
+
+    .direksi-card:hover .direksi-img-container {
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      border-color: var(--secondary-color);
+    }
+
+    .direksi-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .direksi-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--dark-color);
+    }
+
+    .direksi-title {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    /* Modal Styles */
+    .modal-content {
+      border-radius: 15px;
+      overflow: hidden;
+      border: none;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      border-bottom: none;
+      padding: 20px 30px;
+      position: relative;
+    }
+
+    .modal-body {
+      padding: 0 30px 30px;
+    }
+
+    .modal-img-container {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 20px;
+      border: 5px solid white;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-bio {
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background-color: #f8f9fa;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1.5rem;
+      color: #555;
+    }
+
+    .modal-close:hover {
+      background-color: #e9ecef;
+      transform: rotate(90deg);
+    }
+
+    /* Mining Map Section */
+    .mining-map-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mining-map-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNmMGYwZjAiPjwvcmVjdD4KPC9zdmc+');
+      opacity: 0.4;
+      z-index: 0;
+    }
+
+    .mining-map-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .map-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      transition: var(--transition);
+      margin-bottom: 30px;
+    }
+
+    .map-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .map-img-container {
+      position: relative;
+      overflow: hidden;
+      height: 500px;
+    }
+
+    .map-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .map-card:hover .map-img {
+      transform: scale(1.03);
+    }
+
+    .map-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .map-card:hover .map-overlay {
+      opacity: 1;
+    }
+
+    .map-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .map-subtitle {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .map-btn {
+      align-self: flex-start;
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .map-btn:hover {
+      background-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .map-content {
+      padding: 30px;
+    }
+
+    .map-content h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+
+    .map-content p {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .mine-location {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #f8f9fa;
+      transition: var(--transition);
+    }
+
+    .mine-location:hover {
+      background-color: #e9ecef;
+      transform: translateX(10px);
+    }
+
+    .mine-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 1.5rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .mine-location:nth-child(1) .mine-icon {
+      background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    }
+
+    .mine-location:nth-child(2) .mine-icon {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+    }
+
+    .mine-info h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--dark-color);
+    }
+
+    .mine-info p {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    /* Interactive Map */
+    #interactive-map {
+      height: 500px;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    .map-legend {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .legend-text {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #343a40 100%);
+      color: white;
+      padding: 80px 0 40px;
+      position: relative;
+    }
+
+    .footer-title {
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--secondary-color);
+    }
+
+    .footer-contact {
+      margin-bottom: 20px;
+    }
+
+    .footer-contact i {
+      color: var(--secondary-color);
+      margin-right: 10px;
+    }
+
+    .footer-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-menu li {
+      margin-bottom: 15px;
+    }
+
+    .footer-menu a {
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer-menu a::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .footer-menu a:hover {
+      color: var(--secondary-color);
+      padding-left: 20px;
+    }
+
+    .footer-menu a:hover::before {
+      opacity: 1;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .direksi-img-container {
+        width: 180px;
+        height: 180px;
+      }
+      
+      .map-img-container {
+        height: 400px;
+      }
+      
+      #interactive-map {
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .nav-tabs .nav-link {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .direksi-img-container {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .akhlak-card-body {
+        padding: 20px;
+      }
+      
+      .akhlak-title {
+        font-size: 1.3rem;
+      }
+      
+      .akhlak-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+      
+      .map-img-container {
+        height: 300px;
+      }
+      
+      #interactive-map {
+        height: 350px;
+      }
+      
+      .map-title {
+        font-size: 1.5rem;
+      }
+      
+      .map-content h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="mainHeader" class="fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/home/logo.png" alt="Logo" />
+          <strong>PLN Batubara Niaga</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link active" href="about.html">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="background-image: url('images/home/kolaborasi.jpg');">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title" data-aos="fade-up" data-aos-duration="1000">Tentang Kami</h1>
+      <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Mengenal lebih dekat PLN Batubara Niaga</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Profil Perusahaan</h2>
+      
+      <!-- Tab Navigation -->
+      <ul class="nav nav-tabs" id="aboutTabs" role="tablist" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="tentang-tab" data-bs-toggle="tab" data-bs-target="#tentang" type="button" role="tab" aria-controls="tentang" aria-selected="true">Tentang Perusahaan</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="visimisi-tab" data-bs-toggle="tab" data-bs-target="#visimisi" type="button" role="tab" aria-controls="visimisi" aria-selected="false">Visi & Misi</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="akhlak-tab" data-bs-toggle="tab" data-bs-target="#akhlak" type="button" role="tab" aria-controls="akhlak" aria-selected="false">Tata Nilai AKHLAK</button>
+        </li>
+      </ul>
+      
+      <!-- Tab Content -->
+      <div class="tab-content" id="aboutTabsContent">
+        <div class="tab-pane fade show active" id="tentang" role="tabpanel" aria-labelledby="tentang-tab">
+          <div class="row align-items-center">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+              <h3 class="mb-4">Tentang PLN Batubara Niaga</h3>
+              <p class="mb-4">PT PLN Batubara Niaga merupakan anak perusahaan PT PLN (Persero) yang bergerak di bidang pertambangan batubara dan perdagangan batubara untuk mendukung pasokan bahan bakar pembangkit listrik PLN.</p>
+              <p class="mb-4">Didirikan pada 2 Agustus 2019, kami memiliki IUP-OPK (Izin Usaha Pertambangan Operasi Produksi Khusus) untuk pengangkutan dan penjualan batubara secara legal dan profesional.</p>
+              <p>Sebagai bagian dari grup PLN, kami berkomitmen untuk menjamin <em>security of supply</em> pasokan batubara bagi PLTU PLN dan IPP serta industri non ketenagalistrikkan berdasarkan prinsip Good Corporate Governance.</p>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+              <img src="images/home/inovasi.jpg" alt="PLN Batubara Niaga" class="img-fluid rounded-3 shadow">
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="visimisi" role="tabpanel" aria-labelledby="visimisi-tab">
+          <div class="row">
+            <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000">
+              <div class="card border-0 shadow-sm rounded-3 mb-4 h-100">
+                <div class="card-body p-4">
+                  <h3 class="card-title mb-4 text-primary">Visi</h3>
+                  <p class="card-text">Menjadi perusahaan batubara unggul yang mendukung ketahanan energi nasional.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+              <div class="card border-0 shadow-sm rounded-3 mb-4 h-100">
+                <div class="card-body p-4">
+                  <h3 class="card-title mb-4 text-primary">Misi</h3>
+                  <ul class="ps-3">
+                    <li class="mb-2">Menyediakan pasokan batubara andal untuk kebutuhan energi.</li>
+                    <li class="mb-2">Menerapkan nilai AKHLAK dalam seluruh kegiatan bisnis.</li>
+                    <li>Meningkatkan nilai perusahaan secara berkelanjutan.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-12 mt-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+              <div class="card border-0 shadow-sm rounded-3">
+                <div class="card-body p-4 text-center">
+                  <h3 class="card-title mb-4 text-primary">Moto</h3>
+                  <p class="card-text fs-5 fw-bold">Profesional, Terpercaya, dan Berkelanjutan.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- AKHLAK Tab - Enhanced with Wobble Animation -->
+        <div class="tab-pane fade" id="akhlak" role="tabpanel" aria-labelledby="akhlak-tab">
+          <div class="row">
+            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="800">
+              <div class="akhlak-card">
+                <div class="akhlak-card-body">
+                  <div class="akhlak-icon">
+                    <i class="bi bi-shield-check"></i>
+                  </div>
+                  <h4 class="akhlak-title">Amanah</h4>
+                  <p class="akhlak-desc">Memegang teguh kepercayaan yang diberikan dengan penuh tanggung jawab dan integritas.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+              <div class="akhlak-card">
+                <div class="akhlak-card-body">
+                  <div class="akhlak-icon">
+                    <i class="bi bi-graph-up-arrow"></i>
+                  </div>
+                  <h4 class="akhlak-title">Kompeten</h4>
+                  <p class="akhlak-desc">Terus belajar dan mengembangkan kapabilitas untuk menjadi yang terbaik di bidangnya.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+              <div class="akhlak-card">
+                <div class="akhlak-card-body">
+                  <div class="akhlak-icon">
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <h4 class="akhlak-title">Harmonis</h4>
+                  <p class="akhlak-desc">Saling peduli dan menghargai perbedaan untuk menciptakan lingkungan kerja yang positif.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+              <div class="akhlak-card">
+                <div class="akhlak-card-body">
+                  <div class="akhlak-icon">
+                    <i class="bi bi-flag"></i>
+                  </div>
+                  <h4 class="akhlak-title">Loyal</h4>
+                  <p class="akhlak-desc">Berdedikasi dan mengutamakan kepentingan bangsa dan negara di atas kepentingan pribadi.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+              <div class="akhlak-card">
+                <div class="akhlak-card-body">
+                  <div class="akhlak-icon">
+                    <i class="bi bi-lightbulb"></i>
+                  </div>
+                  <h4 class="akhlak-title">Adaptif</h4>
+                  <p class="akhlak-desc">Terus berinovasi dan antusias dalam menghadapi perubahan untuk kemajuan organisasi.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+              <div class="akhlak-card">
+                <div class="akhlak-card-body">
+                  <div class="akhlak-icon">
+                    <i class="bi bi-puzzle"></i>
+                  </div>
+                  <h4 class="akhlak-title">Kolaboratif</h4>
+                  <p class="akhlak-desc">Membangun kerja sama yang sinergis untuk menghasilkan nilai tambah bagi semua pihak.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Direksi Section -->
+  <section class="direksi-section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Direksi</h2>
+      
+      <div class="row justify-content-center">
+        <!-- Direktur 1 -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+          <div class="direksi-card" data-bs-toggle="modal" data-bs-target="#direkturModal1">
+            <div class="direksi-img-container">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-rSWBx6NKqytAqXJoJKdpO7Ot90i75o.png" alt="Rolly" class="direksi-img">
+            </div>
+            <h3 class="direksi-name">Rolly</h3>
+            <p class="direksi-title">PLT Direktur Utama</p>
+          </div>
+        </div>
+        
+        <!-- Direktur 2 -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <div class="direksi-card" data-bs-toggle="modal" data-bs-target="#direkturModal2">
+            <div class="direksi-img-container">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-rSWBx6NKqytAqXJoJKdpO7Ot90i75o.png" alt="Joni Arifin" class="direksi-img">
+            </div>
+            <h3 class="direksi-name">Joni Arifin</h3>
+            <p class="direksi-title">PLT Direktur Keuangan & Human Capital</p>
+          </div>
+        </div>
+        
+        <!-- Direktur 3 -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+          <div class="direksi-card" data-bs-toggle="modal" data-bs-target="#direkturModal3">
+            <div class="direksi-img-container">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-rSWBx6NKqytAqXJoJKdpO7Ot90i75o.png" alt="Rahmat Dian Amir" class="direksi-img">
+            </div>
+            <h3 class="direksi-name">Rahmat Dian Amir</h3>
+            <p class="direksi-title">PLT Direktur Niaga & Operasi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mining Map Section -->
+  <section class="mining-map-section">
+    <div class="container mining-map-container">
+      <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Peta Sumber Tambang</h2>
+      
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4" data-aos="fade-right" data-aos-duration="1000">
+          <div class="map-card">
+            <div class="map-img-container">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-dX3NKiotrYk2X1uzjtUBcUCXqRJvwN.png" alt="Peta Sumber Tambang" class="map-img">
+              <div class="map-overlay">
+                <h3 class="map-title">Peta Sumber Tambang</h3>
+                <p class="map-subtitle">Lokasi tambang dan distribusi batubara PLN Batubara Niaga</p>
+                <a href="#" class="map-btn" data-bs-toggle="modal" data-bs-target="#mapModal">Lihat Detail</a>
+              </div>
+            </div>
+            <div class="map-content">
+              <h3>Lokasi Tambang Utama</h3>
+              <div class="mine-location">
+                <div class="mine-icon">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <div class="mine-info">
+                  <h4>PT Jambi Prima Coal (JPC)</h4>
+                  <p>Jambi</p>
+                </div>
+              </div>
+              <div class="mine-location">
+                <div class="mine-icon">
+                  <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                <div class="mine-info">
+                  <h4>PT Banyan Koalindo Lestari (BKL)</h4>
+                  <p>Sumsel (Sumatera Selatan)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+          <div id="interactive-map"></div>
+          <div class="map-legend">
+            <h4 class="mb-3">Keterangan:</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="legend-item">
+                  <div class="legend-color" style="background-color: #4e54c8;"></div>
+                  <span class="legend-text">POL Padang</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color" style="background-color: #11998e;"></div>
+                  <span class="legend-text">POL Jambi</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color" style="background-color: #f12711;"></div>
+                  <span class="legend-text">POL Sumatera Musi Rawas</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="legend-item">
+                  <div class="legend-color" style="background-color: #ee0979;"></div>
+                  <span class="legend-text">POL Kaltim</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color" style="background-color: #00c6ff;"></div>
+                  <span class="legend-text">POL Kalsel</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-color" style="background-color: #834d9b;"></div>
+                  <span class="legend-text">POL Kalimantan Puting</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-12 mt-4" data-aos="fade-up" data-aos-duration="1000">
+          <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4">
+              <h3 class="card-title mb-4 text-primary">Sumberdaya dan Cadangan Mineral</h3>
+              <p class="card-text">Sumberdaya Mineral dan Cadangan Mineral merupakan dasar bagi kelangsungan operasi perusahaan pertambangan di masa mendatang. Mereka membentuk dasar untuk rencana penambangan jangka panjang tambang dan merupakan data yang mendasari banyak investasi besar perusahaan.</p>
+              <p class="card-text">Cadangan Mineral berkurang setiap tahun melalui kegiatan penambangan dan penambahan baru ke Sumber Daya dan Cadangan, oleh karena itu, sangat penting untuk kelangsungan operasi.</p>
+              <p class="card-text mb-0">PLN Batubara Niaga terus melakukan eksplorasi dan pengembangan untuk memastikan ketersediaan pasokan batubara yang berkelanjutan untuk mendukung ketahanan energi nasional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Modal -->
+  <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mapModalLabel">Peta Sumber Tambang Detail</h5>
+          <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-dX3NKiotrYk2X1uzjtUBcUCXqRJvwN.png" alt="Peta Sumber Tambang" class="img-fluid">
+          <div class="mt-4">
+            <h4>Optimasi Sumber Tambang Sendiri Milik PLNBB:</h4>
+            <ol>
+              <li>PT Jambi Prima Coal (JPC), Jambi</li>
+              <li>PT Banyan Koalindo Lestari (BKL), Sumsel</li>
+            </ol>
+            <h4 class="mt-4">Keterangan:</h4>
+            <ol>
+              <li>POL Padang</li>
+              <li>POL Jambi</li>
+              <li>POL Sumatera Musi Rawas</li>
+              <li>POL Palembang</li>
+              <li>POL Kaltim</li>
+              <li>POL Kalimantan Puting</li>
+              <li>POL Sungai Danau, Asam1, Kintap, Satui</li>
+              <li>POL IBT</li>
+              <li>POL Penajam</li>
+              <li>POL Kalim Sampit</li>
+              <li>POL Kalim Samarinda, BCT</li>
+              <li>POL Kalim TJ Bara</li>
+              <li>POL Berau</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Direktur Modals -->
+  <!-- Modal 1 -->
+  <div class="modal fade" id="direkturModal1" tabindex="-1" aria-labelledby="direkturModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-img-container">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-rSWBx6NKqytAqXJoJKdpO7Ot90i75o.png" alt="Rolly" class="modal-img">
+          </div>
+          <h3 class="modal-name">Rolly</h3>
+          <div class="modal-bio">
+            <p>Lahir di Padang Panjang pada 22 September 1975, Rolly meraih gelar Sarjana Teknik Mesin di Institut Teknologi Nasional.</p>
+            <p>Mengawali karir di PT Indonesia Power PLTU Suralaya pada tahun 2002, Rolly pernah menduduki beberapa posisi penting sebagai Manager Pemeliharaan PT Indonesia Power UBOH PLTU Banten 1 SLA (2010 – 2012), Manager Pemeliharaan PT Indonesia Power UBOH PLTU Banten 3 Lontar (2012 – 2014), Manager Engineering PT Indonesia Power UJP Banten 3 Lontar (2014 – 2017), General Manager of PLTU Jawa Barat 2 Pelabuhan Ratu Operation and Maintenance Service Unit PT. Indonesia Power (2017 – 2021), Vice President Of Primary and Settlement II PT Indonesia Power (2021 – 2022), Vice President Primary Energy Planning and Control | PT PLN Indonesia Power (2022 – 2023), Vice President Operation pemeliharaan dan Planning III PT PLN Indonesia Power (2023 – 2024), Direktur Utama PT PLN BBN (2024 – Sekarang).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2 -->
+  <div class="modal fade" id="direkturModal2" tabindex="-1" aria-labelledby="direkturModal2Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-img-container">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-rSWBx6NKqytAqXJoJKdpO7Ot90i75o.png" alt="Joni Arifin" class="modal-img">
+          </div>
+          <h3 class="modal-name">Joni Arifin</h3>
+          <div class="modal-bio">
+            <p>Joni Arifin lahir di Jakarta pada 15 Maret 1980. Beliau menyelesaikan pendidikan S1 Ekonomi di Universitas Indonesia dan memperoleh gelar MBA dari Institut Teknologi Bandung.</p>
+            <p>Beliau memiliki pengalaman lebih dari 15 tahun di bidang keuangan dan sumber daya manusia. Sebelum bergabung dengan PLN Batubara Niaga, beliau menjabat sebagai VP Keuangan di PT PLN Energi Primer Indonesia (2018-2023). Beliau juga pernah menjabat sebagai Manajer Keuangan di PT Indonesia Power (2010-2018).</p>
+            <p>Dengan keahliannya di bidang keuangan dan pengembangan SDM, beliau berhasil mengimplementasikan berbagai program transformasi yang meningkatkan efisiensi operasional perusahaan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3 -->
+  <div class="modal fade" id="direkturModal3" tabindex="-1" aria-labelledby="direkturModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="modal-close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-img-container">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/gambar-rSWBx6NKqytAqXJoJKdpO7Ot90i75o.png" alt="Rahmat Dian Amir" class="modal-img">
+          </div>
+          <h3 class="modal-name">Rahmat Dian Amir</h3>
+          <div class="modal-bio">
+            <p>Rahmat Dian Amir lahir di Bandung pada 8 Juli 1978. Beliau meraih gelar Sarjana Teknik Industri dari Institut Teknologi Bandung dan Master of Science in Energy Management dari Universitas Gadjah Mada.</p>
+            <p>Beliau memulai karirnya di PLN pada tahun 2003 dan telah menduduki berbagai posisi strategis, termasuk General Manager Distribusi Jawa Barat (2015-2018), VP Perencanaan Strategis PT PLN (2018-2020), dan VP Niaga dan Pemasaran PT PLN Energi Primer Indonesia (2020-2023).</p>
+            <p>Dengan pengalaman luas di bidang operasi dan niaga, beliau berhasil meningkatkan volume penjualan batubara PLN Batubara Niaga sebesar 35% pada tahun 2023 dan memperluas jaringan distribusi ke berbagai wilayah di Indonesia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+          <h5 class="footer-title">Kontak Kami</h5>
+          <div class="footer-contact">
+            <p><i class="bi bi-geo-alt-fill"></i> Jl. Buncit Raya No.10, Kalibata, Pancoran, Jakarta Selatan, DKI Jakarta, 12740</p>
+            <p><i class="bi bi-telephone-fill"></i> Telp: (021) 26963955</p>
+            <p><i class="bi bi-envelope-fill"></i> Email: kontak@plnbatubaraniaga.co.id</p>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <h5 class="footer-title">Menu</h5>
+          <ul class="footer-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+          <h5 class="footer-title">Ikuti Kami</h5>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/plnbatubaraniaga?igsh=MTByNGd1emU3NXE1eA==" class="social-icon">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 PLN Batubara Niaga. Project UTS Hilda (202332092).</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <script>
+    // Inisialisasi AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false,
+      disable: 'mobile' // Nonaktifkan pada perangkat mobile jika performa lambat
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      
+      if (window.scrollY > 50) {
+        header.classList.add('navbar-scrolled');
+      } else {
+        header.classList.remove('navbar-scrolled');
+      }
+    });
+    
+    // Reinisialisasi AOS saat tab berubah
+    const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
+    tabLinks.forEach(tab => {
+      tab.addEventListener('shown.bs.tab', function() {
+        AOS.refresh();
+      });
+    });
+    
+    // Tambahkan efek hover manual untuk kartu AKHLAK
+    const akhlakCards = document.querySelectorAll('.akhlak-card');
+    akhlakCards.forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.animation = 'wobble 0.8s ease-in-out';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        // Reset animasi setelah selesai
+        setTimeout(() => {
+          this.style.animation = '';
+        }, 800);
+      });
+    });
+    
+    // Inisialisasi Leaflet Map
+    document.addEventListener('DOMContentLoaded', function() {
+      // Buat peta
+      const map = L.map('interactive-map').setView([-2.5, 118], 5);
+      
+      // Tambahkan layer peta
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // Tambahkan marker untuk lokasi tambang
+      const jambiMarker = L.marker([-1.6, 103.6]).addTo(map);
+      jambiMarker.bindPopup("<b>PT Jambi Prima Coal (JPC)</b><br>Jambi").openPopup();
+      
+      const sumselMarker = L.marker([-3.3, 104.0]).addTo(map);
+      sumselMarker.bindPopup("<b>PT Banyan Koalindo Lestari (BKL)</b><br>Sumatera Selatan");
+      
+      // Tambahkan marker untuk POL (Point of Loading)
+      const polLocations = [
+        {name: "POL Padang", lat: 0.9, lng: 100.3, color: "#4e54c8"},
+        {name: "POL Jambi", lat: -1.6, lng: 103.6, color: "#11998e"},
+        {name: "POL Sumatera Musi Rawas", lat: -3.0, lng: 103.2, color: "#f12711"},
+        {name: "POL Palembang", lat: -2.9, lng: 104.7, color: "#ee0979"},
+        {name: "POL Kaltim", lat: 0.5, lng: 117.1, color: "#00c6ff"},
+        {name: "POL Kalimantan Puting", lat: -3.0, lng: 114.0, color: "#834d9b"},
+        {name: "POL Sungai Danau", lat: -3.4, lng: 115.5, color: "#4e54c8"},
+        {name: "POL IBT", lat: -0.5, lng: 117.5, color: "#11998e"},
+        {name: "POL Penajam", lat: -1.3, lng: 116.7, color: "#f12711"},
+        {name: "POL Kalim Sampit", lat: -2.5, lng: 112.9, color: "#ee0979"},
+        {name: "POL Kalim Samarinda", lat: -0.5, lng: 117.1, color: "#00c6ff"},
+        {name: "POL Kalim TJ Bara", lat: 1.0, lng: 117.5, color: "#834d9b"},
+        {name: "POL Berau", lat: 2.1, lng: 117.3, color: "#4e54c8"}
+      ];
+      
+      // Tambahkan marker untuk setiap POL
+      polLocations.forEach(location => {
+        const customIcon = L.divIcon({
+          className: 'custom-div-icon',
+          html: `<div style="background-color: ${location.color}; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white;"></div>`,
+          iconSize: [15, 15],
+          iconAnchor: [7, 7]
+        });
+        
+        const marker = L.marker([location.lat, location.lng], {icon: customIcon}).addTo(map);
+        marker.bindPopup(`<b>${location.name}</b>`);
+      });
+      
+      // Tambahkan garis koneksi
+      const connections = [
+        [{lat: -1.6, lng: 103.6}, {lat: -3.3, lng: 104.0}], // Jambi ke Sumsel
+        [{lat: -3.3, lng: 104.0}, {lat: -2.9, lng: 104.7}], // Sumsel ke Palembang
+        [{lat: -1.6, lng: 103.6}, {lat: 0.9, lng: 100.3}], // Jambi ke Padang
+        [{lat: -3.3, lng: 104.0}, {lat: -3.0, lng: 103.2}]  // Sumsel ke Musi Rawas
+      ];
+      
+      connections.forEach(connection => {
+        const polyline = L.polyline([
+          [connection[0].lat, connection[0].lng],
+          [connection[1].lat, connection[1].lng]
+        ], {
+          color: '#0056b3',
+          weight: 2,
+          opacity: 0.7,
+          dashArray: '5, 10'
+        }).addTo(map);
+      });
+    });
+  </script>
+</body>
+</html>

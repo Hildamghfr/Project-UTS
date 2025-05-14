@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Berita - PLN Batubara Niaga</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #f8d000;
+      --dark-color: #1f1f1f;
+      --light-color: #f8f9fa;
+      --transition: all 0.3s ease-in-out;
+    }
+    
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background-color: #f8f9fa;
+    }
+
+    /* Header Styles */
+    .navbar {
+      padding: 20px 0;
+      transition: var(--transition);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand img {
+      height: 60px;
+      transition: var(--transition);
+    }
+
+    .navbar-brand strong {
+      margin-left: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      transition: var(--transition);
+    }
+
+    .navbar-scrolled {
+      background-color: white !important;
+      padding: 10px 0;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-scrolled .navbar-brand img {
+      height: 50px;
+    }
+
+    .navbar-scrolled .navbar-brand strong,
+    .navbar-scrolled .nav-link {
+      color: var(--dark-color) !important;
+    }
+
+    .nav-link {
+      color: white !important;
+      font-weight: 600;
+      margin: 0 10px;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--secondary-color);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: white;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      font-weight: 400;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2rem;
+    }
+
+    /* News Section */
+    .news-section {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+    }
+
+    .section-title {
+      position: relative;
+      margin-bottom: 50px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    /* Search Box */
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto 50px;
+      position: relative;
+    }
+
+    .search-box {
+      width: 100%;
+      padding: 15px 20px;
+      border-radius: 50px;
+      border: 1px solid #e0e0e0;
+      font-size: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      padding-right: 50px;
+    }
+
+    .search-box:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 5px 20px rgba(0, 86, 179, 0.15);
+      outline: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-size: 1.2rem;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .search-box:focus + .search-icon {
+      color: var(--primary-color);
+    }
+
+    /* News Cards */
+    .news-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      height: 100%;
+      background: white;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .news-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .news-img-container {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+
+    .news-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .news-card:hover .news-img {
+      transform: scale(1.05);
+    }
+
+    .news-date {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 8px 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-top-right-radius: 15px;
+    }
+
+    .news-content {
+      padding: 25px;
+    }
+
+    .news-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--dark-color);
+      transition: var(--transition);
+      line-height: 1.4;
+    }
+
+    .news-card:hover .news-title {
+      color: var(--primary-color);
+    }
+
+    .news-excerpt {
+      color: #666;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .news-read-more {
+      display: inline-block;
+      color: var(--primary-color);
+      font-weight: 600;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .news-read-more::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .news-card:hover .news-read-more::after {
+      width: 100%;
+    }
+
+    /* Not Found Message */
+    .not-found {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin-top: 30px;
+    }
+
+    .not-found i {
+      font-size: 4rem;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+
+    .not-found h3 {
+      font-size: 1.8rem;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    .not-found p {
+      color: #777;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Categories */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .category-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      background-color: white;
+      color: #555;
+      border: 1px solid #e0e0e0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .category-btn:hover, .category-btn.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    /* Pagination */
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .pagination {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .page-item {
+      margin: 0 5px;
+    }
+
+    .page-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: white;
+      color: #555;
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 600;
+      border: 1px solid #e0e0e0;
+    }
+
+    .page-link:hover, .page-item.active .page-link {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--dark-color) 0%, #343a40 100%);
+      color: white;
+      padding: 80px 0 40px;
+      position: relative;
+    }
+
+    .footer-title {
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--secondary-color);
+    }
+
+    .footer-contact {
+      margin-bottom: 20px;
+    }
+
+    .footer-contact i {
+      color: var(--secondary-color);
+      margin-right: 10px;
+    }
+
+    .footer-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-menu li {
+      margin-bottom: 15px;
+    }
+
+    .footer-menu a {
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .footer-menu a::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .footer-menu a:hover {
+      color: var(--secondary-color);
+      padding-left: 20px;
+    }
+
+    .footer-menu a:hover::before {
+      opacity: 1;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .news-img-container {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .news-title {
+        font-size: 1.2rem;
+      }
+      
+      .news-img-container {
+        height: 180px;
+      }
+      
+      .categories {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 15px;
+        justify-content: flex-start;
+      }
+      
+      .category-btn {
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .news-section {
+        padding: 50px 0;
+      }
+      
+      .search-box {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .news-img-container {
+        height: 160px;
+      }
+      
+      .news-content {
+        padding: 20px;
+      }
+      
+      .news-title {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+      }
+      
+      .news-excerpt {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+      }
+      
+      .pagination-container {
+        margin-top: 30px;
+      }
+      
+      .page-link {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="mainHeader" class="fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/home/logo.png" alt="Logo" />
+          <strong>PLN Batubara Niaga</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+            <li class="nav-item"><a class="nav-link active" href="news.html">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" style="background-image: url('images/home/berita.jpeg');">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1 class="hero-title" data-aos="fade-up" data-aos-duration="1000">Berita Terbaru</h1>
+      <p class="hero-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Informasi terkini seputar PLN Batubara Niaga</p>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section class="news-section">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up" data-aos-duration="800">Berita & Artikel</h2>
+      
+      <!-- Search Box -->
+      <div class="search-container" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        <input type="text" id="searchInput" class="search-box" placeholder="Cari berita..." />
+        <i class="bi bi-search search-icon"></i>
+      </div>
+      
+      <!-- Categories -->
+      <div class="categories" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+        <button class="category-btn active" data-category="all">Semua</button>
+        <button class="category-btn" data-category="award">Penghargaan</button>
+        <button class="category-btn" data-category="business">Bisnis</button>
+        <button class="category-btn" data-category="csr">CSR</button>
+        <button class="category-btn" data-category="event">Event</button>
+      </div>
+      
+      <!-- News Grid -->
+      <div class="row g-4" id="newsGrid">
+        <!-- News will be loaded with JavaScript -->
+      </div>
+      
+      <!-- Not Found Message -->
+      <div class="not-found" id="notFound" style="display: none;" data-aos="fade-up" data-aos-duration="800">
+        <i class="bi bi-search"></i>
+        <h3>Berita Tidak Ditemukan</h3>
+        <p>Maaf, tidak ada berita yang sesuai dengan kata kunci pencarian Anda. Silakan coba dengan kata kunci lain.</p>
+      </div>
+      
+      <!-- Pagination -->
+      <div class="pagination-container" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+        <ul class="pagination" id="pagination">
+          <!-- Pagination will be loaded with JavaScript -->
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+          <h5 class="footer-title">Kontak Kami</h5>
+          <div class="footer-contact">
+            <p><i class="bi bi-geo-alt-fill"></i> Jl. Buncit Raya No.10, Kalibata, Pancoran, Jakarta Selatan, DKI Jakarta, 12740</p>
+            <p><i class="bi bi-telephone-fill"></i> Telp: (021) 26963955</p>
+            <p><i class="bi bi-envelope-fill"></i> Email: kontak@plnbatubaraniaga.co.id</p>
+          </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+          <h5 class="footer-title">Menu</h5>
+          <ul class="footer-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 mb-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+          <h5 class="footer-title">Ikuti Kami</h5>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/plnbatubaraniaga?igsh=MTByNGd1emU3NXE1eA==" class="social-icon">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 PLN Batubara Niaga. Project UTS Hilda (202332092).</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    // Inisialisasi AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false,
+      disable: 'mobile' // Nonaktifkan pada perangkat mobile jika performa lambat
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('mainHeader');
+      
+      if (window.scrollY > 50) {
+        header.classList.add('navbar-scrolled');
+      } else {
+        header.classList.remove('navbar-scrolled');
+      }
+    });
+    
+    // Data Berita
+    const newsData = [
+      {
+        id: "1",
+        title: "Raih Penghargaan Listrik Indonesia 2024",
+        image: "images/home/news2.jpg",
+        date: "15 April 2024",
+        category: "award",
+        excerpt: "PT PLN Batubara Niaga meraih penghargaan bergengsi dengan predikat 'The Most Innovative Primary Energy Supplier' dalam kategori 'Energy Supply Chain Company'.",
+      },
+      {
+        id: "2",
+        title: "Pendapatan PLN Batubara Niaga Tembus Rp 6,3 Triliun",
+        image: "images/home/news3.jpg",
+        date: "10 April 2024",
+        category: "business",
+        excerpt: "Performa PT PLN Batubara Niaga terus membaik di bawah kepemimpinan Kanapi Subur Dwiyanto sejak 2021. Pendapatan anak perusahaan PLN ini terus subur.",
+      },
+      {
+        id: "3",
+        title: "Volume Penjualan Tumbuh 464 Persen pada 2022",
+        image: "images/home/news1.jpg",
+        date: "5 April 2024",
+        category: "business",
+        excerpt: "Direktur Utama PLN EPI Iwan Agung Firstantara menjelaskan capaian kinerja yang cemerlang pada PLN BBN.",
+      },
+      {
+        id: "4",
+        title: "PLN Batubara Niaga Gelar Pelatihan Pertambangan untuk Masyarakat Lokal",
+        image: "images/home/kolaborasi.jpg",
+        date: "28 Maret 2024",
+        category: "csr",
+        excerpt: "Sebagai bentuk tanggung jawab sosial perusahaan, PLN Batubara Niaga menggelar pelatihan pertambangan untuk masyarakat di sekitar area tambang.",
+      },
+      {
+        id: "5",
+        title: "Kunjungan Kerja Menteri ESDM ke Tambang PLN Batubara Niaga",
+        image: "images/home/inovasi.jpg",
+        date: "20 Maret 2024",
+        category: "event",
+        excerpt: "Menteri Energi dan Sumber Daya Mineral melakukan kunjungan kerja ke lokasi tambang PLN Batubara Niaga di Jambi untuk meninjau operasional tambang.",
+      },
+      {
+        id: "6",
+        title: "PLN Batubara Niaga Jalin Kerjasama dengan Perusahaan Logistik",
+        image: "images/home/Energi.jpg",
+        date: "15 Maret 2024",
+        category: "business",
+        excerpt: "Untuk meningkatkan efisiensi distribusi batubara, PLN Batubara Niaga menjalin kerjasama strategis dengan perusahaan logistik terkemuka.",
+      },
+      {
+        id: "7",
+        title: "Program Beasiswa untuk Putra-Putri Daerah di Sekitar Tambang",
+        image: "images/home/kolaborasi.jpg",
+        date: "10 Maret 2024",
+        category: "csr",
+        excerpt: "PLN Batubara Niaga memberikan beasiswa pendidikan untuk putra-putri daerah di sekitar lokasi tambang sebagai bentuk kepedulian terhadap pendidikan.",
+      },
+      {
+        id: "8",
+        title: "PLN Batubara Niaga Raih Sertifikasi ISO 14001:2015",
+        image: "images/home/inovasi.jpg",
+        date: "5 Maret 2024",
+        category: "award",
+        excerpt: "Komitmen terhadap pengelolaan lingkungan yang berkelanjutan, PLN Batubara Niaga berhasil meraih sertifikasi ISO 14001:2015.",
+      },
+      {
+        id: "9",
+        title: "Rapat Umum Pemegang Saham Tahunan PLN Batubara Niaga",
+        image: "images/home/news3.jpg",
+        date: "28 Februari 2024",
+        category: "event",
+        excerpt: "PLN Batubara Niaga menggelar Rapat Umum Pemegang Saham Tahunan untuk membahas kinerja perusahaan dan rencana strategis ke depan.",
+      }
+    ];
+
+    // DOM Elements
+    const newsGrid = document.getElementById("newsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const notFound = document.getElementById("notFound");
+    const pagination = document.getElementById("pagination");
+    const categoryButtons = document.querySelectorAll(".category-btn");
+
+    // Variables
+    let currentPage = 1;
+    const itemsPerPage = 6;
+    let filteredNews = [...newsData];
+    let currentCategory = "all";
+
+    // Render News
+    function renderNews(items, page = 1) {
+      newsGrid.innerHTML = "";
+      
+      if (items.length === 0) {
+        notFound.style.display = "block";
+        pagination.style.display = "none";
+      } else {
+        notFound.style.display = "none";
+        pagination.style.display = "flex";
+        
+        // Calculate pagination
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const paginatedItems = items.slice(startIndex, endIndex);
+        
+        // Render news items
+        paginatedItems.forEach((item, index) => {
+          const col = document.createElement("div");
+          col.className = "col-lg-4 col-md-6";
+          col.setAttribute("data-aos", "fade-up");
+          col.setAttribute("data-aos-duration", "800");
+          col.setAttribute("data-aos-delay", (index * 100).toString());
+          
+          col.innerHTML = `
+            <a href="news-detail.html?id=${item.id}" class="news-card">
+              <div class="news-img-container">
+                <img src="${item.image}" alt="${item.title}" class="news-img">
+                <div class="news-date">${item.date}</div>
+              </div>
+              <div class="news-content">
+                <h3 class="news-title">${item.title}</h3>
+                <p class="news-excerpt">${item.excerpt}</p>
+                <span class="news-read-more">Baca Selengkapnya</span>
+              </div>
+            </a>
+          `;
+          
+          newsGrid.appendChild(col);
+        });
+        
+        // Render pagination
+        renderPagination(items.length, page);
+      }
+    }
+
+    // Render Pagination
+    function renderPagination(totalItems, currentPage) {
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      pagination.innerHTML = "";
+      
+      // Previous button
+      if (totalPages > 1) {
+        const prevLi = document.createElement("li");
+        prevLi.className = "page-item" + (currentPage === 1 ? " disabled" : "");
+        prevLi.innerHTML = `<a class="page-link" href="#" ${currentPage === 1 ? 'tabindex="-1"' : ''} aria-disabled="${currentPage === 1}"><i class="bi bi-chevron-left"></i></a>`;
+        pagination.appendChild(prevLi);
+        
+        if (currentPage > 1) {
+          prevLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            goToPage(currentPage - 1);
+          });
+        }
+      }
+      
+      // Page numbers
+      for (let i = 1; i <= totalPages; i++) {
+        const li = document.createElement("li");
+        li.className = "page-item" + (i === currentPage ? " active" : "");
+        li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+        pagination.appendChild(li);
+        
+        li.addEventListener("click", (e) => {
+          e.preventDefault();
+          goToPage(i);
+        });
+      }
+      
+      // Next button
+      if (totalPages > 1) {
+        const nextLi = document.createElement("li");
+        nextLi.className = "page-item" + (currentPage === totalPages ? " disabled" : "");
+        nextLi.innerHTML = `<a class="page-link" href="#" ${currentPage === totalPages ? 'tabindex="-1"' : ''} aria-disabled="${currentPage === totalPages}"><i class="bi bi-chevron-right"></i></a>`;
+        pagination.appendChild(nextLi);
+        
+        if (currentPage < totalPages) {
+          nextLi.addEventListener("click", (e) => {
+            e.preventDefault();
+            goToPage(currentPage + 1);
+          });
+        }
+      }
+    }
+
+    // Go to Page
+    function goToPage(page) {
+      currentPage = page;
+      renderNews(filteredNews, currentPage);
+      
+      // Scroll to news section
+      const newsSection = document.querySelector(".news-section");
+      newsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Filter News
+    function filterNews() {
+      const keyword = searchInput.value.toLowerCase();
+      
+      filteredNews = newsData.filter(item => {
+        const matchesKeyword = item.title.toLowerCase().includes(keyword) || 
+                              item.excerpt.toLowerCase().includes(keyword);
+        
+        const matchesCategory = currentCategory === "all" || item.category === currentCategory;
+        
+        return matchesKeyword && matchesCategory;
+      });
+      
+      currentPage = 1;
+      renderNews(filteredNews, currentPage);
+    }
+
+    // Event Listeners
+    searchInput.addEventListener("input", filterNews);
+    
+    // Category Buttons
+    categoryButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Update active state
+        categoryButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        
+        // Filter by category
+        currentCategory = button.getAttribute("data-category");
+        filterNews();
+      });
+    });
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", function() {
+      renderNews(newsData, currentPage);
+    });
+  </script>
+</body>
+</html>
